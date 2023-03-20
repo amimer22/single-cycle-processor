@@ -2,7 +2,7 @@ package riscv
 
 import chisel3._
 
-class InstructionDecode extends Module {
+class IDecode extends Module {
   val io = IO(new Bundle {
     val instruction = Input(UInt(32.W))
     val opcode = Output(UInt(7.W))
