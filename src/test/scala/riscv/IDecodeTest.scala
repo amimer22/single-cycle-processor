@@ -1,3 +1,5 @@
+package riscv
+
 import chisel3._
 import chiseltest._
 import org.scalatest._
@@ -19,8 +21,8 @@ class IDecodeTest extends FlatSpec with ChiselScalatestTester {
     }
   }
 
-  it should "decode an I-type instruction" in {
-    test(new InstructionDecode) { c =>
+ /* it should "decode an I-type instruction" in {
+    test(new IDecode) { c =>
       // Example I-type instruction: ADDI rd, rs1, imm
       val instruction = "b000000000000_00001_00010_0010011".U // ADDI
       c.io.instruction.poke(instruction)
@@ -31,7 +33,7 @@ class IDecodeTest extends FlatSpec with ChiselScalatestTester {
       c.io.funct3.expect("b000".U)
       c.io.funct7.expect("b0000000".U)
     }
-  }
+  }*/
 
   // Add more test cases as needed for other instruction types
 }

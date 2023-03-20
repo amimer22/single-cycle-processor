@@ -20,6 +20,6 @@ class IDecode extends Module {
   io.rs2 := io.instruction(24, 20)
   io.funct7 := io.instruction(31, 25)
   //result
-  printf("Decoded instruction: opcode=%d, rd=%d, funct3=%d, rs1=%d, rs2=%d, funct7=%d\n",
-  opcode, rd, funct3, rs1, rs2, funct7)
+//  printf("Decoded instruction: opcode=%d, rd=%d, funct3=%d, rs1=%d, rs2=%d, funct7=%d\n",
+  //opcode, rd, funct3, rs1, rs2, funct7)
 }
