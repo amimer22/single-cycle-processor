@@ -21,5 +21,8 @@ class Main extends Module {
     IOP.io.funct7 := IDecode.io.funct7
 
     ALU.io.operation = IOP.io.operation
+    ALU.io.op1 = Registers.io.rs1data
+    ALU.io.op2 = Registers.io.rs2data
+    
 
 }
