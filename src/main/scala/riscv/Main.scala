@@ -5,10 +5,13 @@ class Main extends Module {
 
     })
     //module objects
+    val IFetch Module(new IFetch())
     val IDecode = Module(new IDecode())
     val Registers = Module(new Registers())
     val myIOP = Module(new IOP())
     val ALU = Module(new ALU())
+
+    IDecode.io.instruction = IFetch.io.instruction
 
     Registers.io.rs1addr := IDecode.io.rs1
     Registers.io.rs2addr := IDecode.io.rs2
@@ -23,6 +26,6 @@ class Main extends Module {
     ALU.io.operation = IOP.io.operation
     ALU.io.op1 = Registers.io.rs1data
     ALU.io.op2 = Registers.io.rs2data
-    
+
 
 }
