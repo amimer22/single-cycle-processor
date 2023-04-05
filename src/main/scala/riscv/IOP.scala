@@ -1,6 +1,8 @@
 // figuring what operation to execute and pass it to ALU
 package riscv
 
+import chisel3._
+
 class IOP extends Module {
  val io = IO(new Bundle {
     val opcode = Input(UInt(7.W))
