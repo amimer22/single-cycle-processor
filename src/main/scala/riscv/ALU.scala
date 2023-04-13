@@ -1,25 +1,28 @@
-/*import chisel3._
+package riscv
+import chisel3._
 
 class ALU extends Module {
   val io = IO(new Bundle {
     val op1 = Input(UInt(32.W))
     val op2 = Input(UInt(32.W))
-    val aluop = Input(UInt(3.W))
+    //val aluop = Input(UInt(3.W))
     val result = Output(UInt(32.W))
-    val zero = Output(Bool()) //flag of zero
+    //val zero = Output(Bool()) //flag of zero
   })
 
-  io.result := 0.U
-  io.zero := false.B
+  /*io.result := 0.U
+  io.zero := false.B*/
 
-  switch(io.aluop) {
+  io.result := io.op1 + io.op2
+
+  /*switch(io.aluop) {
     is(0.U) {
       io.result := io.op1 + io.op2 //add
     }
     is(1.U) {
       io.result := io.op1 - io.op2 //sub
     }
-    /*is(2.U) {
+    is(2.U) {
       io.result := io.op1 >> io.op2(4, 0)
     }
     is(3.U) {
@@ -44,14 +47,13 @@ class ALU extends Module {
       } .otherwise {
         io.result := 0.U
       }
-    }*/
+    }
   }
   
   when(io.result === 0.U) {
     io.zero := true.B
   } .otherwise {
     io.zero := false.B
-  }
+  }*/
 
 }
-*/

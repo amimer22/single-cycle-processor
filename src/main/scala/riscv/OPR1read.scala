@@ -5,7 +5,7 @@ import chisel3._
 
 class OPR1read extends Module {
     val io = IO(new Bundle {
-        val addrs1 = Input(UInt(32.W))
+        val addrs1 = Input(UInt(5.W))
         val datas1 = Output(UInt(32.W))
 
     })

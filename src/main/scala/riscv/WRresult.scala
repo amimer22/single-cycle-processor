@@ -1,11 +1,11 @@
 // this module works if theres a br jmp 
-package riscv 
+/*package riscv 
 import chisel3._
 
 
 class OPR2read extends Module {
     val io = IO(new Bundle {
-        val addrs2 = Input(UInt(5.W))
+        val addrs2 = Input(UInt(32.W))
         val datas2 = Output(UInt(32.W))
 
     })
@@ -25,4 +25,4 @@ class OPR2read extends Module {
     // Use RegNext registers to assign the updated values to the output ports
     io.datas2 := RegNext(dataRead)*/
 
-}
+}*/

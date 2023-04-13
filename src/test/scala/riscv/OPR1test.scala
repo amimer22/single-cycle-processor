@@ -1,4 +1,4 @@
-package riscv
+/*package riscv
 
 import chisel3._
 import chiseltest._
@@ -37,5 +37,5 @@ class OPR1test extends FlatSpec with  ChiselScalatestTester {
   }*/
 
   // Add more test cases as needed for other instruction types
-}
+}*/
 

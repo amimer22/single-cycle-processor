@@ -14,7 +14,7 @@ class RegisterFile extends Module {
     
     registers.write(0.U, 6.U)
     registers.write(1.U, 5.U)
-    registers.write(2.U, 8.U)
+    registers.write(2.U, 9.U)
     registers.write(3.U, 9.U)
 
     io.data := registers(io.addr)
