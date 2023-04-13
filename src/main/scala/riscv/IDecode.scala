@@ -1,4 +1,4 @@
-package riscv
+/*package riscv
 
 import chisel3._
 
@@ -29,3 +29,4 @@ class IDecode extends Module {
 //  printf("Decoded instruction: opcode=%d, rd=%d, funct3=%d, rs1=%d, rs2=%d, funct7=%d\n",
   //opcode, rd, funct3, rs1, rs2, funct7)
 }
+*/

@@ -1,5 +1,5 @@
 // figuring what operation to execute and pass it to ALU
-package riscv
+/*package riscv
 
 import chisel3._
 
@@ -23,4 +23,4 @@ class IOP extends Module {
     WE = true
  }
 
-}
+}*/

@@ -1,4 +1,4 @@
-package riscv
+/*package riscv
 
 import chisel3._
 
@@ -22,3 +22,4 @@ class Registers extends Module {
   io.rs1data := registers(io.rs1addr)
   io.rs2data := registers(io.rs2addr)
 }
+*/
