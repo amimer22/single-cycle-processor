@@ -3,21 +3,33 @@ package riscv
 import chisel3._
 import chisel3.util._
 
-class RegisterFile extends Module {
+class RegisterFile extends Module{
     val io = IO(new Bundle {
-        val addr = Input(UInt(5.W))
-        val data = Output(UInt(32.W))
-
+        val addr1 = Input(UInt(5.W))
+        val data1 = Output(UInt(32.W))
+        val addr2 = Input(UInt(5.W))
+        val data2 = Output(UInt(32.W))
+        //val addrwr = Input(UInt(5.W))
+        //val datawr = Input(UInt(32.W))
+        //val WE = Input(Bool())
+       
     })
 
     val registers = Mem(32, UInt(32.W))
     
-    registers.write(0.U, 6.U)
+    //when(io.WE) {
+    //registers.write(io.addrwr, io.datawr) // turn this to a logical without when
+    //}
+
+    // when writing data on specific register on li or mv instructions or when writing alu result
+    registers.write(0.U, 9.U)
     registers.write(1.U, 5.U)
-    registers.write(2.U, 9.U)
+    registers.write(2.U, 6.U)
     registers.write(3.U, 9.U)
 
-    io.data := registers(io.addr)
+    io.data1 := registers(io.addr1)
+    io.data2 := registers(io.addr2)
+     // reading data from a register
 
     // Read data from the register file at the specified address
     //val dataRead = registers(io.addr)

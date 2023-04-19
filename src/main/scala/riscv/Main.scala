@@ -5,33 +5,55 @@ class Main extends Module {
     val io = IO(new Bundle {
         val input = Input(UInt(32.W))  //only for test 
         
+        val input1 = Output(UInt(5.W))
+        val input2 = Output(UInt(5.W))
 
         val output = Output(UInt(32.W))
     })
     //module objects
-    //val RegisterFile = Module(new RegisterFile())
+    val RegisterFile = Module(new RegisterFile())
     val IMemory = Module(new IMemory())
     val OPR1read =  Module(new OPR1read())
     val OPR2read =  Module(new OPR2read())
     val ALU = Module(new ALU())
+    //val WRresult = Module(new WRresult())
+    
+
+    //io.input1 := IMemory.io.instruction(19,15)
+    //io.input2 := IMemory.io.instruction(24,20)
 
     IMemory.io.IP_in := io.input    // only for test
     
 
-    OPR1read.io.addrs1 := IMemory.io.instruction(19,15)
-    OPR2read.io.addrs2 := IMemory.io.instruction(24,20)
-
-    //RegisterFile.io.addr := OPR1read.io.addrs1
-    //OPR1read.io.datas1 := RegisterFile.io.data
-
-    //RegisterFile.io.addr := OPR2read.io.addrs2
-    //OPR2read.io.datas2 := RegisterFile.io.data
+    OPR1read.io.addrs1in := IMemory.io.instruction(19,15)//   
     
-    ALU.io.op1 := OPR1read.io.datas1
-    ALU.io.op2 := OPR2read.io.datas2
+    //WRresult.io.addrwr_in := IMemory.io.instruction(11,7) //
+    RegisterFile.io.addr1 := OPR1read.io.addrs1out  //
+    //RegisterFile.addr := OPR1read.OPR1addr1
+    OPR1read.io.datas1in := RegisterFile.io.data1
+   
+    io.input1 :=  OPR1read.io.datas1in
+
+    OPR2read.io.addrs2in := IMemory.io.instruction(24,20)//
     
+    RegisterFile.io.addr2 := OPR2read.io.addrs2out //
+    OPR2read.io.datas2in := RegisterFile.io.data2  
+
+
+    
+    io.input2 :=  OPR2read.io.datas2in
+    
+    ALU.io.op1 := OPR1read.io.datas1out //
+
+    ALU.io.op2 := OPR2read.io.datas2out //
+    
+    //WRresult.io.result_in := ALU.io.result
+    
+    //RegisterFile.io.addrwr := WRresult.io.addrwr_out//
+    //RegisterFile.io.datawr := WRresult.io.result_out//
+
     io.output := ALU.io.result
-    
+
     //val IFetch = Module(new IFetch())
     //val IDecode = Module(new IDecode())
     //val Registers = Module(new Registers())

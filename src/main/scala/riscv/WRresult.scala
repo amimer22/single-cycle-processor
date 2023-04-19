@@ -1,19 +1,31 @@
-// this module works if theres a br jmp 
-/*package riscv 
+package riscv 
 import chisel3._
 
 
-class OPR2read extends Module {
+class WRresult extends Module {
     val io = IO(new Bundle {
-        val addrs2 = Input(UInt(32.W))
-        val datas2 = Output(UInt(32.W))
-
+        val addrwrin = Input(UInt(5.W))
+        val resultin = Input(UInt(32.W))
+        val addrwrout = Output(UInt(5.W))
+        val resultout = Output(UInt(32.W))
+        //val WE = Output(Bool())
+       
     })
+    val ADDRwr = Wire(UInt(5.W)) //addr output 
+    val Result = Wire(UInt(32.W)) //data output
+    ADDRwr := io.addrwrin
+    Result := io.resultin
 
-    val RegisterFile = Module(new RegisterFile())
+    io.addrwrout := ADDRwr
+    io.resultout := Result
+    //val RegisterFile =Module( new RegisterFile())
 
-    RegisterFile.io.addr := io.addrs2
-    io.datas2 := RegisterFile.io.data
+    //RegisterFile.io.addrwr := ADDRWr//
+    //RegisterFile.io.datawr := DataWr//
+
+
+    //RegisterFile.io.addr := io.addrs2
+    //RegisterFile.io.data := */
     
     /*val addrRead = Wire(UInt(32.W))
     val dataRead = Wire(UInt(32.W))
@@ -25,4 +37,4 @@ class OPR2read extends Module {
     // Use RegNext registers to assign the updated values to the output ports
     io.datas2 := RegNext(dataRead)*/
 
-}*/
+}

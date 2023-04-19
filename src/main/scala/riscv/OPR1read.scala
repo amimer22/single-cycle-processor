@@ -5,15 +5,26 @@ import chisel3._
 
 class OPR1read extends Module {
     val io = IO(new Bundle {
-        val addrs1 = Input(UInt(5.W))
-        val datas1 = Output(UInt(32.W))
+        val addrs1in = Input(UInt(5.W))
+        val datas1in = Input(UInt(32.W))
+        val addrs1out = Output(UInt(5.W))
+        val datas1out = Output(UInt(32.W))
 
     })
+    val OPR1addr1 = Wire(UInt(5.W)) //addr output 
+    val OPR1data1 = Wire(UInt(32.W)) //data output
+    OPR1addr1 := io.addrs1in
+    OPR1data1 := io.datas1in
 
-    val RegisterFile = Module(new RegisterFile()) 
+    io.addrs1out := OPR1addr1
+    io.datas1out := OPR1data1
+    //val RegisterFile = Module(new RegisterFile())
+//  
 
-    RegisterFile.io.addr := io.addrs1
-    io.datas1 := RegisterFile.io.data
+    //RegisterFile.io.addr := OPR1addr1
+    //io.datas1 := RegisterFile.io.data 
+    //RegisterFile.io.addr := io.addrs1
+    //io.datas1 := RegisterFile.io.data
 
     // Use Wire to hold the updated values
     //val addrRead = Wire(UInt(32.W))
