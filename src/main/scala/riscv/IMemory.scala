@@ -16,7 +16,7 @@ class IMemory extends Module {
     //io.instructionadd1 := io.instruction(19,15)
     //io.instructionadd2 := io.instruction(24,20)
 
-    Memory.write(0.U, "b0000000_00010_00001_000_00101_0110011".U)
+    Memory.write(0.U, "b0000000_00010_00001_000_00011_0110011".U)
     //loadMemoryFromFile ( imem , "/home/mrrobot/usthb-chip/src/main/scala/riscv/IFile.txt" )
     io.instruction := Memory( io.IP_in)
 }
