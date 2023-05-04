@@ -17,7 +17,7 @@ class Main extends Module {
     val IMemory = Module(new IMemory())
     val OPR1read =  Module(new OPR1read())
     val OPR2read =  Module(new OPR2read())
-    val ALU = Module(new ALU())
+    val ADD = Module(new ADD())
     val WRresult = Module(new WRresult())
     
 
@@ -39,22 +39,31 @@ class Main extends Module {
 
     io.input2 :=  OPR2read.io.datas2in
     
-    //ALU
-    ALU.io.op1 := OPR1read.io.datas1out
-    ALU.io.op2 := OPR2read.io.datas2out
+    //ADD
+    ADD.io.op1 := OPR1read.io.datas1out
+    ADD.io.op2 := OPR2read.io.datas2out
+    //SUB
+    SUB.io.op1 := OPR1read.io.datas1out
+    SUB.io.op2 := OPR2read.io.datas2out
+    //OR
+    OR.io.op1 := OPR1read.io.datas1out
+    OR.io.op2 := OPR2read.io.datas2out
+    //AND
+    AND.io.op1 := OPR1read.io.datas1out
+    AND.io.op2 := OPR2read.io.datas2out
     
     //Wresult
     WRresult.io.addrwrin := IMemory.io.instruction(11,7)
-    WRresult.io.resultin := ALU.io.result  
+    WRresult.io.resultin := ADD.io.result  
 
     //val isOne = WRresult.io.WE === 1.U
-    WRresult.io.WE := false.B
+    WRresult.io.WE := true.B
     
     RegisterFile.io.WE := WRresult.io.WE
     RegisterFile.io.addrwr := WRresult.io.addrwrout
     RegisterFile.io.datawr := WRresult.io.resultout
     //test
-    //io.output := ALU.io.result
+    //io.output := ADD.io.result
     io.input3 := RegisterFile.io.addrwr
     
 
