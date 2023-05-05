@@ -13,7 +13,7 @@ class OR extends Module {
   /*io.result := 0.U
   io.zero := false.B*/
 
-  io.result := io.op1 & io.op2
+  io.result := io.op1 | io.op2
 
  
 

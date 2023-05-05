@@ -18,6 +18,11 @@ class Main extends Module {
     val OPR1read =  Module(new OPR1read())
     val OPR2read =  Module(new OPR2read())
     val ADD = Module(new ADD())
+    val SUB = Module(new SUB())
+    val AND = Module(new AND())
+    val OR = Module(new OR())
+    val OperationSel = Module(new OperationSel())
+    val AluSel = Module(new AluSel())
     val WRresult = Module(new WRresult())
     
 
@@ -38,7 +43,14 @@ class Main extends Module {
     OPR2read.io.datas2in := RegisterFile.io.data2    
 
     io.input2 :=  OPR2read.io.datas2in
-    
+
+    //OperationSel
+    OperationSel.io.opcode := IMemory.io.instruction(6,0)
+    OperationSel.io.funct3 := IMemory.io.instruction(14,12)
+    OperationSel.io.funct7 := IMemory.io.instruction(31,25)
+    AluSel.io.operation := OperationSel.io.operation
+
+
     //ADD
     ADD.io.op1 := OPR1read.io.datas1out
     ADD.io.op2 := OPR2read.io.datas2out
@@ -51,10 +63,18 @@ class Main extends Module {
     //AND
     AND.io.op1 := OPR1read.io.datas1out
     AND.io.op2 := OPR2read.io.datas2out
+
     
+
+    //AluSel
+    AluSel.io.AddRes := ADD.io.result
+    AluSel.io.SubRes := SUB.io.result
+    AluSel.io.AndRes := AND.io.result
+    AluSel.io.OrRes := OR.io.result
+
     //Wresult
     WRresult.io.addrwrin := IMemory.io.instruction(11,7)
-    WRresult.io.resultin := ADD.io.result  
+    WRresult.io.resultin := AluSel.io.output 
 
     //val isOne = WRresult.io.WE === 1.U
     WRresult.io.WE := true.B
@@ -64,11 +84,13 @@ class Main extends Module {
     RegisterFile.io.datawr := WRresult.io.resultout
     //test
     //io.output := ADD.io.result
-    io.input3 := RegisterFile.io.addrwr
-    
+    //io.input3 := RegisterFile.io.addrwr
+    io.input3 := OperationSel.io.operation
 
     io.output := RegisterFile.io.datawr
     //io.input4 := RegisterFile.io.wrtest
+
+    //io.output := AluSel.io.SubRes
     
 
 }

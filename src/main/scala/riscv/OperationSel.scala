@@ -11,17 +11,20 @@ class OperationSel extends Module {
     //val imm = Input(UInt(12.W))
     val operation = Output(UInt(5.W)) //to change 5.w
   })
-    when (opcode === "b0110011".U && funct3= "b000".U && funct7="b0000000".U){
-        operation := "b00001".U //add
+    when (io.opcode === "b0110011".U && io.funct3 === "b000".U && io.funct7==="b0000000".U){
+       io.operation := "b00001".U //add
     }	
-    when (opcode === "b0110011".U && funct3= "b000".U && funct7= "b0100000".U){
-        operation := "b00010".U //sub
+    .elsewhen (io.opcode === "b0110011".U && io.funct3=== "b000".U && io.funct7=== "b0100000".U){
+       io.operation := "b00010".U //sub
     }	
-    when (opcode === "b0110011".U && funct3= "b111".U && funct7= "b0000000".U){
-        operation := "b00011".U //and
+    .elsewhen (io.opcode === "b0110011".U && io.funct3=== "b111".U && io.funct7=== "b0000000".U){
+       io.operation := "b00011".U //and
     }	
-    when (opcode === "b0110011".U && funct3= "b110".U && funct7= "b0000000"){
-        operation := "b00101".U //or
-    }	 
+    .elsewhen (io.opcode === "b0110011".U && io.funct3=== "b110".U && io.funct7=== "b0000000".U){
+       io.operation := "b00101".U //or
+    }	
+    .otherwise {
+    io.operation := 22.U //22 code error for having no operation
+    } 
   
 }
