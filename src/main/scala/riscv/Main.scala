@@ -8,7 +8,9 @@ class Main extends Module {
         val input1 = Output(UInt(5.W))
         val input2 = Output(UInt(5.W))
         val input3 = Output(UInt(5.W))
-        //val input4 = Output(UInt(32.W))
+        val input4 = Output(UInt(32.W))
+        //val input5 = Output(Bool())
+
 
         val output = Output(UInt(32.W))
     })
@@ -25,6 +27,8 @@ class Main extends Module {
     val AluSel = Module(new AluSel())
     val WRresult = Module(new WRresult())
     
+    //initialisation 
+    //RegisterFile.io.WE := false.B
 
     //io.input1 := IMemory.io.instruction(19,15)
     //io.input2 := IMemory.io.instruction(24,20)
@@ -43,7 +47,8 @@ class Main extends Module {
     OPR2read.io.datas2in := RegisterFile.io.data2    
 
     io.input2 :=  OPR2read.io.datas2in
-
+    //regfile
+    RegisterFile.io.addrwr := IMemory.io.instruction(11,7)
     //OperationSel
     OperationSel.io.opcode := IMemory.io.instruction(6,0)
     OperationSel.io.funct3 := IMemory.io.instruction(14,12)
@@ -73,24 +78,21 @@ class Main extends Module {
     AluSel.io.OrRes := OR.io.result
 
     //Wresult
-    WRresult.io.addrwrin := IMemory.io.instruction(11,7)
+   
+    //WRresult.io.addrwrin := IMemory.io.instruction(11,7)
     WRresult.io.resultin := AluSel.io.output 
 
-    //val isOne = WRresult.io.WE === 1.U
-    WRresult.io.WE := true.B
-    
-    RegisterFile.io.WE := WRresult.io.WE
-    RegisterFile.io.addrwr := WRresult.io.addrwrout
+    //RegisterFile.io.addrwr := WRresult.io.addrwrout
+    //RegisterFile.io.WE := true.B
     RegisterFile.io.datawr := WRresult.io.resultout
     //test
-    //io.output := ADD.io.result
-    //io.input3 := RegisterFile.io.addrwr
-    io.input3 := OperationSel.io.operation
-
-    io.output := RegisterFile.io.datawr
-    //io.input4 := RegisterFile.io.wrtest
-
-    //io.output := AluSel.io.SubRes
+    //WRresult.io.WE := true.B
     
-
+    //io.output := ADD.io.result
+    io.input3 := RegisterFile.io.addrwr
+    io.input4 := RegisterFile.io.datawr
+    
+    //io.input3 := OperationSel.io.operation
+    io.output := RegisterFile.io.wrtest
+    //io.input5 := RegisterFile.io.WE
 }

@@ -23,11 +23,14 @@ class Maintest extends FlatSpec with  ChiselScalatestTester {
 
 
       c.io.input3.expect("b00011".U) //operation
+      c.io.input4.expect("b000100".U)
+      //c.io.input5.expect(true.B) 
+
 
 
       //c.io.output.expect("b000000_000000_000000_001011".U)     // 11 for add 
       //c.io.output.expect("b000000_000000_000000_000001".U)     // 1 for sub
-      c.io.output.expect("b000000_000000_000000_000100".U)     // 4  for and
+      //c.io.output.expect("b000000_000000_000000_000100".U)     // 4  for and
 
 
       //c.io.input4.expect("hb".U)

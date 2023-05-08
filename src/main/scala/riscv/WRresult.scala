@@ -4,19 +4,19 @@ import chisel3._
 
 class WRresult extends Module {
     val io = IO(new Bundle {
-        val addrwrin = Input(UInt(5.W))
+        //val addrwrin = Input(UInt(5.W))
         val resultin = Input(UInt(32.W))
-        val addrwrout = Output(UInt(5.W))
+        //val addrwrout = Output(UInt(5.W))
         val resultout = Output(UInt(32.W))
-        val WE = Input(Bool())
+        //val WE = Input(Bool())
        
     })
-    val ADDRwr = Wire(UInt(5.W)) //addr output 
+    //val ADDRwr = Wire(UInt(5.W)) //addr output 
     val Result = Wire(UInt(32.W)) //data output
-    ADDRwr := io.addrwrin
+    //ADDRwr := io.addrwrin
     Result := io.resultin
 
-    io.addrwrout := ADDRwr
+    //io.addrwrout := ADDRwr
     io.resultout := Result
     //val RegisterFile =Module( new RegisterFile())
 
