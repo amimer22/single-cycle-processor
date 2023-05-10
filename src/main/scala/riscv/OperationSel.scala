@@ -13,7 +13,10 @@ class OperationSel extends Module {
   })
     when (io.opcode === "b0110011".U && io.funct3 === "b000".U && io.funct7==="b0000000".U){
        io.operation := "b00001".U //add
-    }	
+    }
+    .elsewhen (io.opcode === "b0010011".U && io.funct3 === "b000".U){
+       io.operation := "b00001".U //addi
+    }		   
     .elsewhen (io.opcode === "b0110011".U && io.funct3=== "b000".U && io.funct7=== "b0100000".U){
        io.operation := "b00010".U //sub
     }	

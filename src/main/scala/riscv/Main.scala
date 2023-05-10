@@ -9,6 +9,9 @@ class Main extends Module {
         val input2 = Output(UInt(5.W))
         val input3 = Output(UInt(5.W))
         val input4 = Output(UInt(32.W))
+        val input5 = Output(UInt(32.W))
+        val input6 = Output(UInt(32.W))
+
         //val input5 = Output(Bool())
 
 
@@ -19,6 +22,7 @@ class Main extends Module {
     val IMemory = Module(new IMemory())
     val OPR1read =  Module(new OPR1read())
     val OPR2read =  Module(new OPR2read())
+    val OPR2Sel =  Module(new OPR2Sel())
     val ADD = Module(new ADD())
     val SUB = Module(new SUB())
     val AND = Module(new AND())
@@ -40,8 +44,13 @@ class Main extends Module {
     OPR1read.io.datas1in := RegisterFile.io.data1
    
     io.input1 :=  OPR1read.io.datas1in
+    //OPR2sel
+    OPR2Sel.io.opcode := IMemory.io.instruction(6,0)
+    OPR2read.io.R_type := OPR2Sel.io.R_type
+    OPR2read.io.Imm_type := OPR2Sel.io.Imm_type
 
     //OPR2
+    OPR2read.io.immin := IMemory.io.instruction(31,20)
     OPR2read.io.addrs2in := IMemory.io.instruction(24,20)
     RegisterFile.io.addr2 := OPR2read.io.addrs2out
     OPR2read.io.datas2in := RegisterFile.io.data2    
@@ -59,6 +68,9 @@ class Main extends Module {
     //ADD
     ADD.io.op1 := OPR1read.io.datas1out
     ADD.io.op2 := OPR2read.io.datas2out
+
+    io.input5 := ADD.io.op1
+    io.input6 := ADD.io.op2
     //SUB
     SUB.io.op1 := OPR1read.io.datas1out
     SUB.io.op2 := OPR2read.io.datas2out

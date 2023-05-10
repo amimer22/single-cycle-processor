@@ -10,7 +10,7 @@ class Maintest extends FlatSpec with  ChiselScalatestTester {
   it should "get alu result of add 2 operands" in {
     test(new Main) { c =>
       // Example R-type instruction: ADD rd, rs1, rs2
-      val IP = "h2".U
+      val IP = "h1".U
       c.io.input.poke(IP) 
 //
       //val addrs1 = "b00001".U
@@ -23,7 +23,11 @@ class Maintest extends FlatSpec with  ChiselScalatestTester {
 
 
       c.io.input3.expect("b00011".U) //operation
-      c.io.input4.expect("b000100".U)
+      //c.io.input4.expect("b001000".U)
+      c.io.input4.expect("b000001".U)
+
+      //c.io.input5.expect("b000110".U) // 5
+      //c.io.input6.expect("b000101".U) // 6
       //c.io.input5.expect(true.B) 
 
 

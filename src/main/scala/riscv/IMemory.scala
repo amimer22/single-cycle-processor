@@ -20,6 +20,8 @@ class IMemory extends Module {
     Memory.write(1.U, "b0100000_00010_00001_000_00011_0110011".U)//sub x1,x2,x3
     Memory.write(2.U, "b0000000_00010_00001_111_00011_0110011".U)//and x1,x2,x3
     Memory.write(3.U, "b0000000_00010_00001_110_00011_0110011".U)//or x1,x2,x3
+    Memory.write(4.U, "b0000000_00010_00001_000_00011_0010011".U)//addi x1,x2,x3
+
 
 
 
