@@ -1,5 +1,9 @@
 package riscv 
 import chisel3._
+import chisel3.stage.ChiselStage
+
+//import circt.stage.ChiselStage
+
 
 class Main extends Module {
     val io = IO(new Bundle {
@@ -107,4 +111,7 @@ class Main extends Module {
     //io.input3 := OperationSel.io.operation
     io.output := RegisterFile.io.wrtest
     //io.input5 := RegisterFile.io.WE
+}
+object Main extends App {
+  (new ChiselStage).emitVerilog(new Main)
 }
