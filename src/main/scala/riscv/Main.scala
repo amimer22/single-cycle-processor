@@ -10,7 +10,7 @@ class Main extends Module {
         val input = Input(UInt(32.W))  //only for test 
         
         val input1 = Output(UInt(5.W))
-        val input2 = Output(UInt(5.W))
+        //val input2 = Output(UInt(5.W))
         val input3 = Output(UInt(5.W))
         val input4 = Output(UInt(32.W))
         val input5 = Output(UInt(32.W))
@@ -19,7 +19,7 @@ class Main extends Module {
         //val input5 = Output(Bool())
 
 
-        val output = Output(UInt(32.W))
+        //val output = Output(UInt(32.W))
     })
     //module objects
     val RegisterFile = Module(new RegisterFile())
@@ -49,7 +49,7 @@ class Main extends Module {
     RegisterFile.io.addr1 := OPR1read.io.addrs1out
     OPR1read.io.datas1in := RegisterFile.io.data1
    
-    io.input1 :=  OPR1read.io.datas1in
+    io.input1 :=  OPR1read.io.datas1in //6
     //OPR2sel
     OPR2Sel.io.opcode := IMemory.io.instruction(6,0)
     OPR2read.io.R_type := OPR2Sel.io.R_type
@@ -61,7 +61,7 @@ class Main extends Module {
     RegisterFile.io.addr2 := OPR2read.io.addrs2out
     OPR2read.io.datas2in := RegisterFile.io.data2    
 
-    io.input2 :=  OPR2read.io.datas2in
+    //io.input2 :=  OPR2read.io.datas2in //5
     //regfile
     RegisterFile.io.addrwr := IMemory.io.instruction(11,7)
     //OperationSel
@@ -117,11 +117,13 @@ class Main extends Module {
     //WRresult.io.WE := true.B
     
     //io.output := ADD.io.result
-    io.input3 := RegisterFile.io.addrwr
-    io.input4 := RegisterFile.io.datawr
-    
+    io.input3 := RegisterFile.io.addrwr //3
+    io.input4 := RegisterFile.io.datawr // 20
+    io.input5 := AluSel.io.output // 10
+    io.input6 := DataMemory.io.ReadData //20
+    //io.output :=
     //io.input3 := OperationSel.io.operation
-    io.output := RegisterFile.io.wrtest //this is a bug -- clock issues
+    //io.output := RegisterFile.io.wrtest //this is a bug -- clock issues
     //io.input5 := RegisterFile.io.WE
 }
 object Main extends App {

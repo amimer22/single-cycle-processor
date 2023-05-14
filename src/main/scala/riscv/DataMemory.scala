@@ -11,7 +11,7 @@ class DataMemory extends Module{
     
     val DMemory = Mem(1024, UInt(32.W))
     // my memory data
-    DMemory.write(0.U, 9.U)
+    DMemory.write(0.U, 22.U) //in cas it returns 0
     DMemory.write(1.U, 9.U)
     DMemory.write(2.U, 9.U)
     DMemory.write(3.U, 9.U)
@@ -21,13 +21,13 @@ class DataMemory extends Module{
     DMemory.write(7.U, 9.U)
     DMemory.write(8.U, 9.U)
     DMemory.write(9.U, 9.U)
-    DMemory.write(10.U, 9.U)
-    DMemory.write(11.U, 9.U)
+    DMemory.write(10.U, 20.U)
+    DMemory.write(11.U, 20.U)
     DMemory.write(12.U, 9.U)
     DMemory.write(13.U, 9.U)
     DMemory.write(14.U, 9.U)
     //
-    
+
     io.ReadData := DMemory(io.ReadAddr)
 
 }
