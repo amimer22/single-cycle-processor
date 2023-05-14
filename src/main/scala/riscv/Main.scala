@@ -33,8 +33,10 @@ class Main extends Module {
     val OR = Module(new OR())
     val OperationSel = Module(new OperationSel())
     val AluSel = Module(new AluSel())
-    val WRresult = Module(new WRresult())
-    
+    val DataMemory = Module(new DataMemory())
+    val ResultSel = Module(new ResultSel())
+
+
     //initialisation 
     //RegisterFile.io.WE := false.B
 
@@ -93,14 +95,24 @@ class Main extends Module {
     AluSel.io.AndRes := AND.io.result
     AluSel.io.OrRes := OR.io.result
 
+
+    //DataMemory
+    DataMemory.io.ReadAddr := AluSel.io.output 
+    //ResultSel
+    ResultSel.io.opcode := IMemory.io.instruction(6,0) // this should be sent to control unit
+    ResultSel.io.ReadData := DataMemory.io.ReadData
+    ResultSel.io.AluRes := AluSel.io.output  // output should be named ALURES
+
+    RegisterFile.io.datawr := ResultSel.io.Result
+
     //Wresult
    
     //WRresult.io.addrwrin := IMemory.io.instruction(11,7)
-    WRresult.io.resultin := AluSel.io.output 
+    //WRresult.io.resultin := AluSel.io.output 
 
     //RegisterFile.io.addrwr := WRresult.io.addrwrout
     //RegisterFile.io.WE := true.B
-    RegisterFile.io.datawr := WRresult.io.resultout
+    //RegisterFile.io.datawr := WRresult.io.resultout //this is a bug -- clock issues 
     //test
     //WRresult.io.WE := true.B
     
@@ -109,7 +121,7 @@ class Main extends Module {
     io.input4 := RegisterFile.io.datawr
     
     //io.input3 := OperationSel.io.operation
-    io.output := RegisterFile.io.wrtest
+    io.output := RegisterFile.io.wrtest //this is a bug -- clock issues
     //io.input5 := RegisterFile.io.WE
 }
 object Main extends App {
