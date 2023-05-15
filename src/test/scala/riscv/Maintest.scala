@@ -7,10 +7,10 @@ import org.scalatest._
 class Maintest extends FlatSpec with  ChiselScalatestTester {
   behavior of "alu result"
 
-  it should "run a load LW instructions" in {
+  it should "run a Store SW instructions" in {
     test(new Main) { c =>
       // Example R-type instruction: ADD rd, rs1, rs2
-      val IP = "h5".U
+      val IP = "h6".U
       c.io.input.poke(IP) 
 //
       //val addrs1 = "b00001".U
@@ -18,15 +18,15 @@ class Maintest extends FlatSpec with  ChiselScalatestTester {
 //
       //val addrs2 = "b00002".U
       //c.io.input2.poke(addrs2)
-      //c.io.input2.expect("b00101".U) //5 inside register(1)
+      c.io.input2.expect("b00101".U) //5 inside register(1)
       c.io.input1.expect("b00110".U) //6 inside register(2)
-      c.io.input3.expect("b00011".U) //register x3
+      //c.io.input3.expect("b00011".U) //register x3
 
 
       //c.io.input4.expect("b001000".U)
-      c.io.input4.expect("b000000_000000_000000_010100".U)// result to be written inside datwr of registerfile in this case 20
-      c.io.input5.expect("b000000_000000_000000_001011".U) // 11
-      c.io.input6.expect("b000000_000000_000000_010100".U) // 20
+      c.io.input4.expect("b000000_000000_000000_000011".U)// result to be written inside immin in this case 3
+      c.io.input5.expect("b000000_000000_000000_000101".U) // 5
+      c.io.input6.expect("b000000_000000_000000_001001".U) // 9
       //c.io.input5.expect(true.B) 
 
 

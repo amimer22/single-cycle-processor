@@ -4,6 +4,7 @@ import chisel3.util._
 
 class DataMemory extends Module{
     val io = IO(new Bundle {
+        val dataSin = Input(UInt(32.W))
         val ReadAddr = Input(UInt(32.W))
         val ReadData = Output(UInt(32.W))
 
@@ -27,7 +28,8 @@ class DataMemory extends Module{
     DMemory.write(13.U, 9.U)
     DMemory.write(14.U, 9.U)
     //
-
+    DMemory(io.ReadAddr) := io.dataSin /// this should be conditioned controlled**
+    
     io.ReadData := DMemory(io.ReadAddr)
 
 }

@@ -1,5 +1,6 @@
 package riscv 
 import chisel3._
+import chisel3.util._
 import chisel3.stage.ChiselStage
 
 //import circt.stage.ChiselStage
@@ -10,8 +11,8 @@ class Main extends Module {
         val input = Input(UInt(32.W))  //only for test 
         
         val input1 = Output(UInt(5.W))
-        //val input2 = Output(UInt(5.W))
-        val input3 = Output(UInt(5.W))
+        val input2 = Output(UInt(5.W))
+        //val input3 = Output(UInt(5.W))
         val input4 = Output(UInt(32.W))
         val input5 = Output(UInt(32.W))
         val input6 = Output(UInt(32.W))
@@ -54,14 +55,17 @@ class Main extends Module {
     OPR2Sel.io.opcode := IMemory.io.instruction(6,0)
     OPR2read.io.R_type := OPR2Sel.io.R_type
     OPR2read.io.Imm_type := OPR2Sel.io.Imm_type
+    OPR2read.io.S_type := OPR2Sel.io.S_type
+
 
     //OPR2
     OPR2read.io.immin := IMemory.io.instruction(31,20)
+    OPR2read.io.Simmin := Cat(IMemory.io.instruction(31,25),IMemory.io.instruction(11,7)) 
     OPR2read.io.addrs2in := IMemory.io.instruction(24,20)
     RegisterFile.io.addr2 := OPR2read.io.addrs2out
     OPR2read.io.datas2in := RegisterFile.io.data2    
-
-    //io.input2 :=  OPR2read.io.datas2in //5
+    
+    io.input2 :=  OPR2read.io.datas2in //5
     //regfile
     RegisterFile.io.addrwr := IMemory.io.instruction(11,7)
     //OperationSel
@@ -98,6 +102,8 @@ class Main extends Module {
 
     //DataMemory
     DataMemory.io.ReadAddr := AluSel.io.output 
+    DataMemory.io.dataSin := OPR2read.io.dataSout 
+
     //ResultSel
     ResultSel.io.opcode := IMemory.io.instruction(6,0) // this should be sent to control unit
     ResultSel.io.ReadData := DataMemory.io.ReadData
@@ -117,10 +123,11 @@ class Main extends Module {
     //WRresult.io.WE := true.B
     
     //io.output := ADD.io.result
-    io.input3 := RegisterFile.io.addrwr //3
-    io.input4 := RegisterFile.io.datawr // 20
-    io.input5 := AluSel.io.output // 10
-    io.input6 := DataMemory.io.ReadData //20
+    //io.input3 := RegisterFile.io.addrwr //3
+    //io.input4 := RegisterFile.io.datawr // 20
+    io.input4 := OPR2read.io.datas2out // 3
+    io.input5 := DataMemory.io.dataSin // 5
+    io.input6 := DataMemory.io.ReadData //9
     //io.output :=
     //io.input3 := OperationSel.io.operation
     //io.output := RegisterFile.io.wrtest //this is a bug -- clock issues
