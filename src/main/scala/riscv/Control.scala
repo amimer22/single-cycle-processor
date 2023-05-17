@@ -56,29 +56,29 @@ class Control extends Module {
         }
     }
 
-    when(operation === "b000" && funct3 === "b000" && funct7 === "b0000000"){
-        io.AluCtrl := "b000" //add
+    when(operation === "b000".U && io.funct3 === "b000".U && io.funct7 === "b0000000".U){
+        io.AluCtrl := "b000".U //add
     }
-    .elsewhen(operation === "b000" && funct3 === "b000" && funct7 === "b0100000"){
-        io.AluCtrl := "b001" //sub
+    .elsewhen(operation === "b000".U && io.funct3 === "b000".U && io.funct7 === "b0100000".U){
+        io.AluCtrl := "b001".U //sub
     }
-    .elsewhen(operation === "b000" && funct3 === "b111" && funct7 === "b0000000"){
-        io.AluCtrl := "b010" //And
+    .elsewhen(operation === "b000".U && io.funct3 === "b111".U && io.funct7 === "b0000000".U){
+        io.AluCtrl := "b010".U //And
     }
-    .elsewhen(operation === "b000" && funct3 === "b110" && funct7 === "b0000000"){
-        io.AluCtrl := "b011" //or
+    .elsewhen(operation === "b000".U && io.funct3 === "b110".U && io.funct7 === "b0000000".U){
+        io.AluCtrl := "b011".U //or
     }
-    .elsewhen(operation === "b001" && funct3 === "b000"){//addi
-        io.AluCtrl := "b000" //add
+    .elsewhen(operation === "b001".U && io.funct3 === "b000".U){//addi
+        io.AluCtrl := "b000".U //add
     }
-    .elsewhen(operation === "b001" && funct3 === "b111"){//Andi
-        io.AluCtrl := "b010" //And
+    .elsewhen(operation === "b001".U && io.funct3 === "b111".U){//Andi
+        io.AluCtrl := "b010".U //And
     }
-    .elsewhen(operation === "b010" && funct3 === "b110"){
-        io.AluCtrl := "b000" //add
+    .elsewhen(operation === "b010".U && io.funct3 === "b110".U){
+        io.AluCtrl := "b000".U //add
     }
-    .elsewhen(operation === "b010" && funct3 === "b110"){
-        io.AluCtrl := "b000" //add
+    .elsewhen(operation === "b010".U && io.funct3 === "b110".U){
+        io.AluCtrl := "b000".U //add
     }
 
 }
