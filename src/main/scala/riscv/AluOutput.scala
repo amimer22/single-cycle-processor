@@ -1,29 +1,29 @@
 package riscv
 import chisel3._
 
-class AluSel extends Module {
+class AluOutput extends Module {
   val io = IO(new Bundle {
-    val operation = Input(UInt(32.W))
+    //val operation = Input(UInt(32.W))
     val AddRes = Input(UInt(32.W))
     val SubRes = Input(UInt(32.W))
     val AndRes = Input(UInt(32.W))
     val OrRes = Input(UInt(32.W))
     val output = Output(UInt(32.W))
-
+    val AluCtrl = Input(UInt(3.W))
   })
 
-    when (io.operation === "b00001".U) {
+    when (io.AluCtrl === "b000".U) {
         io.output := io.AddRes
-        }.elsewhen (io.operation ==="b00010".U) {
+        }.elsewhen (io.AluCtrl ==="b001".U) {
         io.output := io.SubRes
-        }.elsewhen (io.operation === "b00011".U) {
+        }.elsewhen (io.AluCtrl === "b010".U) {
         io.output := io.AndRes
-        }.elsewhen (io.operation ==="b00101".U) {
+        }.elsewhen (io.AluCtrl ==="b011".U) {
         io.output := io.OrRes
         }.otherwise {
         io.output := 0.U
         }
-    /*switch(io.operation) {
+    /*switch(io.AluCtrl) {
         is("b00001".U) {
         output := io.AddRes
         }

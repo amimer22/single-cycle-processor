@@ -7,7 +7,7 @@ class DataMemory extends Module{
         val dataSin = Input(UInt(32.W))
         val ReadAddr = Input(UInt(32.W))
         val ReadData = Output(UInt(32.W))
-
+        val MemWrite = Input(Bool())
     })
     
     val DMemory = Mem(1024, UInt(32.W))

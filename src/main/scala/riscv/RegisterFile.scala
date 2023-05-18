@@ -12,7 +12,7 @@ class RegisterFile extends Module{
         val addrwr = Input(UInt(5.W))
         val datawr = Input(UInt(32.W))
         //val WE = Input(Bool())
-
+        val RegWrite = Input(Bool())
         val wrtest = Output(UInt(32.W))
         //val wrtest1 = Input(UInt(32.W))
        

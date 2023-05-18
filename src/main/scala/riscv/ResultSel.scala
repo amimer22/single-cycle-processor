@@ -5,7 +5,7 @@ import chisel3._
 // to determin if it's from load or normal arithmetic
 class ResultSel extends Module {
     val io = IO(new Bundle {
-        val opcode = Input(UInt(7.W))
+        val ResSrc = Input(Bool())
         val AluRes = Input(UInt(32.W))
         val ReadData = Input(UInt(32.W))
 
@@ -13,12 +13,10 @@ class ResultSel extends Module {
         //val err = Output(UInt(32.W))
     })
     
-    when (io.opcode === "b0110011".U){ //Rtype instructions
+    when (io.ResSrc){ //From ALU
         io.Result := io.AluRes
-    }.elsewhen (io.opcode === "b0000011".U ){ //Load instructions
+    }.otherwise { //From Memory
         io.Result := io.ReadData
-    }.otherwise {
-        io.Result := 22.U // 22 is code err
     }
  
     

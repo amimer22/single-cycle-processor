@@ -2,7 +2,7 @@ package riscv
 import chisel3._
 import chisel3.util._
 
-class Control extends Module {
+class Controler extends Module {
     val io = IO(new Bundle {
         val opcode = Input(UInt(7.W))
         val funct3 = Input(UInt(3.W))
