@@ -15,20 +15,26 @@ class Controler extends Module {
         val ResSrc = Output(Bool())
 
         val AluCtrl = Output(UInt(3.W))
-
+        val operation = Output(UInt(3.W))
 
 
         
     })
-    val operation = UInt(3.W)
+    
+    io.RegWrite := false.B
+    io.MemWrite := false.B
+    io.ImmSrc := "b00".U //doesnt matter
+    io.AluSrc := false.B
+    io.ResSrc := false.B
+    io.operation := "b000".U
     switch (io.opcode){
         is ("b0110011".U){ //R instructions
             io.RegWrite := true.B
             io.MemWrite := false.B
-            //io.ImmSrc := 
+            io.ImmSrc := "b00".U //doesnt matter
             io.AluSrc := false.B
             io.ResSrc := true.B
-            operation := "b000".U
+            io.operation := "b000".U
         }
         is ("b0010011".U ){ //I instructions
             io.RegWrite := true.B
@@ -36,49 +42,52 @@ class Controler extends Module {
             io.ImmSrc := "b00".U
             io.AluSrc := true.B
             io.ResSrc := true.B
-            operation := "b001".U
+            io.operation := "b001".U
         }
         is ("b0000011".U ){ //I Load instructions
             io.RegWrite := true.B
             io.MemWrite := false.B
-            io.ImmSrc := "b01".U
+            io.ImmSrc := "b00".U
             io.AluSrc := true.B
             io.ResSrc := true.B
-            operation := "b010".U
+            io.operation := "b010".U
         }
         is ("b0100011".U ){ //S instructions
             io.RegWrite := false.B
             io.MemWrite := true.B
-            io.ImmSrc := "b10".U
+            io.ImmSrc := "b01".U
             io.AluSrc := true.B
-            //io.ResSrc := true.B
-            operation := "b010".U
+            io.ResSrc := true.B //doesnt matter
+            io.operation := "b010".U
         }
     }
 
-    when(operation === "b000".U && io.funct3 === "b000".U && io.funct7 === "b0000000".U){
+    when(io.operation === "b000".U && io.funct3 === "b000".U && io.funct7 === "b0000000".U){
         io.AluCtrl := "b000".U //add
     }
-    .elsewhen(operation === "b000".U && io.funct3 === "b000".U && io.funct7 === "b0100000".U){
+    .elsewhen(io.operation === "b000".U && io.funct3 === "b000".U && io.funct7 === "b0100000".U){
         io.AluCtrl := "b001".U //sub
     }
-    .elsewhen(operation === "b000".U && io.funct3 === "b111".U && io.funct7 === "b0000000".U){
+    .elsewhen(io.operation === "b000".U && io.funct3 === "b111".U && io.funct7 === "b0000000".U){
         io.AluCtrl := "b010".U //And
     }
-    .elsewhen(operation === "b000".U && io.funct3 === "b110".U && io.funct7 === "b0000000".U){
+    .elsewhen(io.operation === "b000".U && io.funct3 === "b110".U && io.funct7 === "b0000000".U){
         io.AluCtrl := "b011".U //or
     }
-    .elsewhen(operation === "b001".U && io.funct3 === "b000".U){//addi
+    .elsewhen(io.operation === "b001".U && io.funct3 === "b000".U){//addi
         io.AluCtrl := "b000".U //add
     }
-    .elsewhen(operation === "b001".U && io.funct3 === "b111".U){//Andi
+    .elsewhen(io.operation === "b001".U && io.funct3 === "b111".U){//Andi
         io.AluCtrl := "b010".U //And
     }
-    .elsewhen(operation === "b010".U && io.funct3 === "b110".U){
+    .elsewhen(io.operation === "b010".U && io.funct3 === "b010".U){//store
         io.AluCtrl := "b000".U //add
     }
-    .elsewhen(operation === "b010".U && io.funct3 === "b110".U){
+    .elsewhen(io.operation === "b010".U && io.funct3 === "b010".U){
         io.AluCtrl := "b000".U //add
+    }
+    .otherwise {
+        io.AluCtrl := 4.U //err
     }
 
 }

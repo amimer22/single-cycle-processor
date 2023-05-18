@@ -16,7 +16,7 @@ class Imm extends Module {
     }.elsewhen (io.ImmSrc === "b01".U ){
         io.Imm_output := io.Imm_Stype
     }.otherwise {
-        io.Imm_output := 22.U // 22 is code err
+        io.Imm_output := 20.U // 22 is code err
     }
  
     

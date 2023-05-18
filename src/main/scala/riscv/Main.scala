@@ -12,7 +12,7 @@ class Main extends Module {
         
         val input1 = Output(UInt(5.W))
         val input2 = Output(UInt(5.W))
-        //val input3 = Output(UInt(5.W))
+        val input3 = Output(UInt(5.W))
         val input4 = Output(UInt(32.W))
         val input5 = Output(UInt(32.W))
         val input6 = Output(UInt(32.W))
@@ -57,7 +57,7 @@ class Main extends Module {
     Controler.io.funct7 := IMemory.io.instruction(31,25)
 
     //regfile
-    RegisterFile.io.addrwr := Controler.io.RegWrite
+    RegisterFile.io.RegWrite := Controler.io.RegWrite
     RegisterFile.io.addrwr := IMemory.io.instruction(11,7)
 
     //OPR1
@@ -143,9 +143,9 @@ class Main extends Module {
     //WRresult.io.WE := true.B
     
     //io.output := ADD.io.result
-    //io.input3 := RegisterFile.io.addrwr //3
+    io.input3 := Controler.io.AluCtrl //3
     //io.input4 := RegisterFile.io.datawr // 20
-    io.input4 := OPR2read.io.datas2out // 3
+    io.input4 := ImmOpr2Sel.io.ImmOp2Sel_output // 3
     io.input5 := DataMemory.io.dataSin // 5
     io.input6 := DataMemory.io.ReadData //9
     //io.output :=

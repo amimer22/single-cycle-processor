@@ -20,7 +20,7 @@ class Maintest extends FlatSpec with  ChiselScalatestTester {
       //c.io.input2.poke(addrs2)
       c.io.input2.expect("b00101".U) //5 inside register(1)
       c.io.input1.expect("b00110".U) //6 inside register(2)
-      //c.io.input3.expect("b00011".U) //register x3
+      c.io.input3.expect("b000".U) //register x3
 
 
       //c.io.input4.expect("b001000".U)
