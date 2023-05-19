@@ -13,20 +13,20 @@ class RegisterFile extends Module{
         val datawr = Input(UInt(32.W))
         //val WE = Input(Bool())
         val RegWrite = Input(Bool())
-        val wrtest = Output(UInt(32.W))
+        //val wrtest = Output(UInt(32.W))
         //val wrtest1 = Input(UInt(32.W))
        
     })
-    val adress = io.addrwr
-    val data = io.datawr
+    //val adress = io.addrwr
+    //val data = io.datawr
     val registers = Mem(32, UInt(32.W))
-    //when(io.WE) {
-    registers.write(io.addrwr, io.datawr)
-        //registers(adress) := data
-        io.wrtest := registers(3.U)
-    //}.otherwise {
-    //io.wrtest := 22.U //22 code error for having no data
-    //} 
+    when(io.RegWrite) {
+    //registers.write(io.addrwr, io.datawr)
+        registers(io.addrwr) := io.datawr
+        //io.wrtest := registers(3.U)
+    }.otherwise {
+        registers(io.addrwr) := 22.U //22 code error for having no data
+    } 
     
     // when writing data on specific register on li or mv instructions or when writing alu result
     registers.write(0.U, 9.U)

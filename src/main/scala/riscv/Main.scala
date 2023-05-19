@@ -20,7 +20,7 @@ class Main extends Module {
         //val input5 = Output(Bool())
 
 
-        //val output = Output(UInt(32.W))
+        val output = Output(UInt(32.W))
     })
     //module objects
     val Controler = Module(new Controler())
@@ -148,7 +148,7 @@ class Main extends Module {
     io.input4 := ImmOpr2Sel.io.ImmOp2Sel_output // 3
     io.input5 := DataMemory.io.dataSin // 5
     io.input6 := DataMemory.io.ReadAddr //9
-    //io.output :=
+    io.output := DataMemory.io.ReadData
     //io.input3 := OperationSel.io.operation
     //io.output := RegisterFile.io.wrtest //this is a bug -- clock issues
     //io.input5 := RegisterFile.io.WE

@@ -23,15 +23,17 @@ class DataMemory extends Module{
     DMemory.write(6.U, 9.U)
     DMemory.write(7.U, 9.U)
     DMemory.write(8.U, 9.U)
-    DMemory.write(9.U, 9.U)
-    DMemory.write(10.U, 20.U)
-    DMemory.write(11.U, 20.U)
-    DMemory.write(12.U, 9.U)
-    DMemory.write(13.U, 9.U)
-    DMemory.write(14.U, 9.U)
+    //DMemory.write(9.U, 9.U)
+    //DMemory.write(10.U, 20.U)
+    //DMemory.write(11.U, 20.U)
+    //DMemory.write(12.U, 9.U)
+    //DMemory.write(13.U, 9.U)
+    //DMemory.write(14.U, 9.U)
     //
+    when(io.MemWrite){
     DMemory(io.ReadAddr) := io.dataSin /// this should be conditioned controlled**
-    
+    }.otherwise {DMemory(io.ReadAddr) := 22.U}
+
     io.ReadData := DMemory(io.ReadAddr)
 
 }
