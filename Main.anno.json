@@ -1,5 +1,17 @@
 [
   {
+    "class":"firrtl.transforms.DedupedResult",
+    "original":"~Main|OPR1read",
+    "duplicate":"~Main|Main/OPR1read:OPR1read",
+    "index":0.21428571428571427
+  },
+  {
+    "class":"firrtl.transforms.DedupedResult",
+    "original":"~Main|OPR2read",
+    "duplicate":"~Main|Main/OPR2read:OPR1read",
+    "index":0.2857142857142857
+  },
+  {
     "class":"firrtl.EmitCircuitAnnotation",
     "emitter":"firrtl.VerilogEmitter"
   },

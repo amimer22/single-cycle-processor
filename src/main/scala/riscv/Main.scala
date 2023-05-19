@@ -147,7 +147,7 @@ class Main extends Module {
     //io.input4 := RegisterFile.io.datawr // 20
     io.input4 := ImmOpr2Sel.io.ImmOp2Sel_output // 3
     io.input5 := DataMemory.io.dataSin // 5
-    io.input6 := DataMemory.io.ReadData //9
+    io.input6 := DataMemory.io.ReadAddr //9
     //io.output :=
     //io.input3 := OperationSel.io.operation
     //io.output := RegisterFile.io.wrtest //this is a bug -- clock issues

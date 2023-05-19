@@ -15,7 +15,7 @@ class Maintest extends FlatSpec with  ChiselScalatestTester {
 //
       //val addrs1 = "b00001".U
       //c.io.input1.poke(addrs1)
-//
+      c.clock.step()
       //val addrs2 = "b00002".U
       //c.io.input2.poke(addrs2)
       c.io.input2.expect("b00101".U) //5 inside register(1)
