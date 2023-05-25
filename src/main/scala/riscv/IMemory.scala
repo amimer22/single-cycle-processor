@@ -7,7 +7,7 @@ import chisel3.stage.ChiselStage
 
 class IMemory extends Module {
     val io = IO(new Bundle {
-        val IP_in = Input(UInt(32.W))
+        val IPmem_in = Input(UInt(32.W))
         val instruction = Output(UInt(32.W))
         //val instructionadd1 = Output(UInt(5.W))
         //val instructionadd2 = Output(UInt(5.W))
@@ -31,7 +31,7 @@ class IMemory extends Module {
 
 
     //loadMemoryFromFile ( imem , "/home/mrrobot/usthb-chip/src/main/scala/riscv/IFile.txt" )
-    io.instruction := Memory( io.IP_in)
+    io.instruction := Memory( io.IPmem_in)
 }
 
 object IMemory extends App {

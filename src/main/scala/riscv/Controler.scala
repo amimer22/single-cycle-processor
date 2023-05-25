@@ -83,7 +83,7 @@ class Controler extends Module {
     .elsewhen(io.operation === "b010".U && io.funct3 === "b010".U){//store
         io.AluCtrl := "b000".U //add
     }
-    .elsewhen(io.operation === "b010".U && io.funct3 === "b010".U){
+    .elsewhen(io.operation === "b010".U && io.funct3 === "b010".U){//load repitition
         io.AluCtrl := "b000".U //add
     }
     .otherwise {

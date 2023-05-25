@@ -8,14 +8,14 @@ import chisel3.stage.ChiselStage
 
 class Main extends Module {
     val io = IO(new Bundle {
-        val input = Input(UInt(32.W))  //only for test 
-        
-        val input1 = Output(UInt(5.W))
-        val input2 = Output(UInt(5.W))
-        val input3 = Output(UInt(5.W))
-        val input4 = Output(UInt(32.W))
-        val input5 = Output(UInt(32.W))
-        val input6 = Output(UInt(32.W))
+        //val input = Input(UInt(32.W))  //only for test 
+        //
+        //val input1 = Output(UInt(5.W))
+        //val input2 = Output(UInt(5.W))
+        //val input3 = Output(UInt(5.W))
+        //val input4 = Output(UInt(32.W))
+        //val input5 = Output(UInt(32.W))
+        //val input6 = Output(UInt(32.W))
 
         //val input5 = Output(Bool())
 
@@ -25,6 +25,8 @@ class Main extends Module {
     //module objects
     val Controler = Module(new Controler())
     val RegisterFile = Module(new RegisterFile())
+    val Pc = Module(new Pc())
+    val PcInc = Module(new PcInc())
     val IMemory = Module(new IMemory())
     val OPR1read =  Module(new OPR1read())
     val OPR2read =  Module(new OPR2read())
@@ -47,10 +49,10 @@ class Main extends Module {
 
     //io.input1 := IMemory.io.instruction(19,15)
     //io.input2 := IMemory.io.instruction(24,20)
-    IMemory.io.IP_in := io.input    // only for test
-
-   
-
+    //IMemory.io.IPmem_in := io.input    // only for test
+    io.output := Pc.io.IP_out
+    IMemory.io.IPmem_in := Pc.io.IP_out 
+    
     //controler
     Controler.io.opcode := IMemory.io.instruction(6,0)
     Controler.io.funct3 := IMemory.io.instruction(14,12)
@@ -65,7 +67,7 @@ class Main extends Module {
     RegisterFile.io.addr1 := OPR1read.io.addrs1out
     OPR1read.io.datas1in := RegisterFile.io.data1
    
-    io.input1 :=  OPR1read.io.datas1in //6
+    //io.input1 :=  OPR1read.io.datas1in //6
     //OPR2sel
     //OPR2Sel.io.opcode := IMemory.io.instruction(6,0)
     //OPR2read.io.R_type := OPR2Sel.io.R_type
@@ -79,7 +81,7 @@ class Main extends Module {
     RegisterFile.io.addr2 := OPR2read.io.addrs2out
     OPR2read.io.datas2in := RegisterFile.io.data2    
     
-    io.input2 :=  OPR2read.io.datas2in //5
+    //io.input2 :=  OPR2read.io.datas2in //5
 
     //Imm
     Imm.io.ImmSrc := Controler.io.ImmSrc
@@ -97,8 +99,8 @@ class Main extends Module {
     //ADD.io.op2 := OPR2read.io.datas2out
     ADD.io.op2 := ImmOpr2Sel.io.ImmOp2Sel_output
 
-    io.input5 := ADD.io.op1
-    io.input6 := ADD.io.op2
+    //io.input5 := ADD.io.op1
+    //io.input6 := ADD.io.op2
     //SUB
     SUB.io.op1 := OPR1read.io.datas1out
     SUB.io.op2 := ImmOpr2Sel.io.ImmOp2Sel_output
@@ -131,6 +133,10 @@ class Main extends Module {
 
     RegisterFile.io.datawr := ResultSel.io.Result
 
+    //pc
+    PcInc.io.IPInc_in := Pc.io.IP_out
+    Pc.io.IP_in := PcInc.io.IPInc_out
+
     //Wresult
    
     //WRresult.io.addrwrin := IMemory.io.instruction(11,7)
@@ -143,12 +149,13 @@ class Main extends Module {
     //WRresult.io.WE := true.B
     
     //io.output := ADD.io.result
-    io.input3 := Controler.io.AluCtrl //3
+    //io.input3 := Controler.io.AluCtrl //3
     //io.input4 := RegisterFile.io.datawr // 20
-    io.input4 := ImmOpr2Sel.io.ImmOp2Sel_output // 3
-    io.input5 := DataMemory.io.dataSin // 5
-    io.input6 := DataMemory.io.ReadAddr //9
-    io.output := DataMemory.io.ReadData
+    //io.input4 := ImmOpr2Sel.io.ImmOp2Sel_output // 3
+    //io.input5 := DataMemory.io.dataSin // 5
+    //io.input6 := DataMemory.io.ReadAddr //9
+    //io.output := DataMemory.io.ReadData
+    //io.output := Pc.io.IP_in
     //io.input3 := OperationSel.io.operation
     //io.output := RegisterFile.io.wrtest //this is a bug -- clock issues
     //io.input5 := RegisterFile.io.WE
