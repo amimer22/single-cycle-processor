@@ -10,7 +10,7 @@ class Main extends Module {
     val io = IO(new Bundle {
         //val input = Input(UInt(32.W))  //only for test 
         //
-        //val input1 = Output(UInt(5.W))
+        val input1 = Output(UInt(5.W))
         //val input2 = Output(UInt(5.W))
         //val input3 = Output(UInt(5.W))
         //val input4 = Output(UInt(32.W))
@@ -101,7 +101,7 @@ class Main extends Module {
     //branch
     Branch.io.Br := Controler.io.Br
     Branch.io.BrCtrl := Controler.io.BrCtrl
-
+    io.input1 := Branch.io.BrCtrl
     Branch.io.Datas1 := OPR1read.io.datas1out
     Branch.io.Datas2 := OPR2read.io.datas2out
 

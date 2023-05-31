@@ -130,7 +130,7 @@ class Controler extends Module {
     .elsewhen(io.operation === "b011".U && io.funct3 === "b111".U){
         io.BrCtrl := "b10111".U //gue
     }
-    .otherwise{io.BrCtrl := 22.U //err
+    .otherwise{io.BrCtrl := 26.U //err
     }
 
 

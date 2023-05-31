@@ -12,7 +12,7 @@ class BrTarget extends Module {
 
     })
     val B_imm_inc = Wire(UInt(32.W))
-    B_imm_inc := io.B_imm + 1.U
+    B_imm_inc := io.IP_init + 1.U
     when(io.Br_up){
         io.B_output := io.B_imm + io.IP_init
     }

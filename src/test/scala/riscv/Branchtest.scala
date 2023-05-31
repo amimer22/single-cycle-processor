@@ -13,8 +13,9 @@ class Branchtest extends FlatSpec with  ChiselScalatestTester {
       c.io.output.expect("h0".U)
       c.clock.step()
       c.io.output.expect("h1".U)
+      c.io.input1.expect("b10000".U)
       c.clock.step()
-      c.io.output.expect("h2".U)
+      c.io.output.expect("h5".U)
       
     }
   }

@@ -4,7 +4,7 @@ import chisel3.util._
 
 class Branch extends Module {
     val io = IO(new Bundle {
-        val BrCtrl = Input(UInt(3.W))
+        val BrCtrl = Input(UInt(5.W))
         val Br = Input(Bool())
         val Datas1 = Input(UInt(32.W))
         val Datas2 = Input(UInt(32.W))
