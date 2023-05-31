@@ -25,6 +25,7 @@ class Main extends Module {
     //module objects
     val Controler = Module(new Controler())
     val RegisterFile = Module(new RegisterFile())
+    val PcCtrl = Module(new PcCtrl())
     val Pc = Module(new Pc())
     val PcInc = Module(new PcInc())
     val IMemory = Module(new IMemory())
@@ -38,6 +39,8 @@ class Main extends Module {
     val SUB = Module(new SUB())
     val AND = Module(new AND())
     val OR = Module(new OR())
+    val Branch = Module(new Branch())
+    val BrTarget = Module(new BrTarget())
     //val OperationSel = Module(new OperationSel())
     val AluOutput = Module(new AluOutput())
     val DataMemory = Module(new DataMemory())
@@ -57,6 +60,8 @@ class Main extends Module {
     Controler.io.opcode := IMemory.io.instruction(6,0)
     Controler.io.funct3 := IMemory.io.instruction(14,12)
     Controler.io.funct7 := IMemory.io.instruction(31,25)
+    
+    PcCtrl.io.PcCtrl := Controler.io.PcCtrl
 
     //regfile
     RegisterFile.io.RegWrite := Controler.io.RegWrite
@@ -87,13 +92,23 @@ class Main extends Module {
     Imm.io.ImmSrc := Controler.io.ImmSrc
     Imm.io.Imm_Itype := IMemory.io.instruction(31,20)
     Imm.io.Imm_Stype := Cat(IMemory.io.instruction(31,25),IMemory.io.instruction(11,7)) 
-
+    Imm.io.Imm_Btype := Cat(IMemory.io.instruction(31),IMemory.io.instruction(7),IMemory.io.instruction(30,25),IMemory.io.instruction(11,8)) 
     //ImmOpr2Sel
     ImmOpr2Sel.io.AluSrc := Controler.io.AluSrc
     ImmOpr2Sel.io.Opr2_input := OPR2read.io.datas2out
     ImmOpr2Sel.io.Imm_input := Imm.io.Imm_output
 
-    
+    //branch
+    Branch.io.Br := Controler.io.Br
+    Branch.io.BrCtrl := Controler.io.BrCtrl
+
+    Branch.io.Datas1 := OPR1read.io.datas1out
+    Branch.io.Datas2 := OPR2read.io.datas2out
+
+    //BrTarget
+    BrTarget.io.IP_init := Pc.io.IP_out
+    BrTarget.io.Br_up := Branch.io.Br_up
+    BrTarget.io.B_imm := Imm.io.Imm_Btype
     //ADD
     ADD.io.op1 := OPR1read.io.datas1out
     //ADD.io.op2 := OPR2read.io.datas2out
@@ -133,10 +148,14 @@ class Main extends Module {
 
     RegisterFile.io.datawr := ResultSel.io.Result
 
-    //pc
+    //pcinc
     PcInc.io.IPInc_in := Pc.io.IP_out
-    Pc.io.IP_in := PcInc.io.IPInc_out
+    //pc cntrl
+    PcCtrl.io.IP_incremented := PcInc.io.IPInc_out
+    PcCtrl.io.IP_Branched := BrTarget.io.B_output
 
+    Pc.io.IP_in := PcCtrl.io.IP
+    //PcCtrl.io.IP_Jumped 
     //Wresult
    
     //WRresult.io.addrwrin := IMemory.io.instruction(11,7)

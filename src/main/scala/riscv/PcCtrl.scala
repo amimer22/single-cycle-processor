@@ -1,23 +1,27 @@
 // this module works if theres a br jmp 
-/*package riscv 
+package riscv 
 import chisel3._
 
 
-class PrePc extends Module {
+class PcCtrl extends Module {
     val io = IO(new Bundle {
-        val Br = Input(UInt(32.W))
-        val Jmp = Input(UInt(32.W))
-        val IP_out = Input(UInt(32.W))
-        //val pc = Input(UInt(32.W))
+        val PcCtrl = Input(UInt(3.W))
+        val IP_incremented = Input(UInt(32.W))
+        val IP_Branched = Input(UInt(32.W))
         val IP = Output(UInt(32.W))
 
     })
 
-    io.IP = io.IP_out + 1.U
     
-    when(io.Br) {
+    
+    when(io.PcCtrl === "b001".U) { //branch
+        io.IP := io.IP_Branched
     }
-    when(io.Jmp) {
+    .elsewhen(io.PcCtrl === "b000".U) { //jump
+        io.IP := io.IP_incremented
+    }
+    .otherwise { //normal
+        io.IP := 44.U //err just testing
     }
 
-}*/
+}
