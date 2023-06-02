@@ -88,7 +88,7 @@ class Controler extends Module {
             io.MemWrite := false.B
             io.ImmSrc := "b11".U
             io.AluSrc := false.B //doesnt matter
-            io.ResSrc := "b00".U // needs to change
+            io.ResSrc := "b10".U // needs to change
             io.Br := false.B
             io.operation := "b100".U
             io.PcCtrl := "b010".U 
@@ -144,10 +144,10 @@ class Controler extends Module {
     .otherwise{io.BrCtrl := 26.U //err
     }
 
-    when(io.operation === "b100".U) {
-        io.JmpCtrl === "b00".U
-    }.elsewhen(io.operation === "b101".U && io.funct3 === "b000".U){
-        io.JmpCtrl === "b01".U
+    when(io.operation === "b100".U) { //jal
+        io.JmpCtrl := "b00".U
+    }.elsewhen(io.operation === "b101".U && io.funct3 === "b000".U){ //jalR
+        io.JmpCtrl := "b01".U
     }
     .otherwise{io.JmpCtrl := 26.U //err 
     }

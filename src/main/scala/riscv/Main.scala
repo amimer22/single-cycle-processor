@@ -107,7 +107,7 @@ class Main extends Module {
     //branch
     Branch.io.Br := Controler.io.Br
     Branch.io.BrCtrl := Controler.io.BrCtrl
-    io.input1 := Branch.io.BrCtrl
+    //io.input1 := Branch.io.BrCtrl
     Branch.io.Datas1 := OPR1read.io.datas1out
     Branch.io.Datas2 := OPR2read.io.datas2out
 
@@ -154,9 +154,10 @@ class Main extends Module {
     ResultSel.io.nextPcAddr := PcInc.io.IPInc_out
     //
     RegisterFile.io.datawr := ResultSel.io.Result
-
+    io.input1 := RegisterFile.io.datawr
     //pcinc
     PcInc.io.IPInc_in := Pc.io.IP_out // maybe err here
+    
     //pc cntrl
     PcCtrl.io.IP_incremented := PcInc.io.IPInc_out
     PcCtrl.io.IP_Branched := BrTarget.io.B_output
