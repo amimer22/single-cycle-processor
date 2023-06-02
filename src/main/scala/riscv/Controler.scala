@@ -12,11 +12,12 @@ class Controler extends Module {
         val MemWrite = Output(Bool())
         val ImmSrc = Output(UInt(2.W))
         val AluSrc = Output(Bool())     
-        val ResSrc = Output(Bool())
+        val ResSrc = Output(UInt(2.W))
         val Br = Output(Bool())
         val AluCtrl = Output(UInt(3.W))
         val operation = Output(UInt(3.W))
         val BrCtrl = Output(UInt(5.W))
+        val JmpCtrl = Output(UInt(2.W))
         val PcCtrl = Output(UInt(3.W))
 
 
@@ -27,7 +28,7 @@ class Controler extends Module {
     io.MemWrite := false.B
     io.ImmSrc := "b00".U //doesnt matter
     io.AluSrc := false.B
-    io.ResSrc := false.B
+    io.ResSrc := "b00".U
     io.Br := false.B
     io.operation := "b000".U
     io.PcCtrl := "b000".U
@@ -37,7 +38,7 @@ class Controler extends Module {
             io.MemWrite := false.B
             io.ImmSrc := "b00".U //doesnt matter
             io.AluSrc := false.B
-            io.ResSrc := true.B
+            io.ResSrc := "b00".U
             io.Br := false.B
             io.operation := "b000".U
             io.PcCtrl := "b000".U
@@ -47,7 +48,7 @@ class Controler extends Module {
             io.MemWrite := false.B
             io.ImmSrc := "b00".U
             io.AluSrc := true.B
-            io.ResSrc := true.B
+            io.ResSrc := "b00".U
             io.Br := false.B
             io.operation := "b001".U
             io.PcCtrl := "b000".U
@@ -57,7 +58,7 @@ class Controler extends Module {
             io.MemWrite := false.B
             io.ImmSrc := "b00".U
             io.AluSrc := true.B
-            io.ResSrc := true.B
+            io.ResSrc := "b01".U
             io.Br := false.B
             io.operation := "b010".U
             io.PcCtrl := "b000".U
@@ -67,7 +68,7 @@ class Controler extends Module {
             io.MemWrite := true.B
             io.ImmSrc := "b01".U
             io.AluSrc := true.B
-            io.ResSrc := true.B //doesnt matter 
+            io.ResSrc := "b00".U //doesnt matter 
             io.Br := false.B
             io.operation := "b010".U
             io.PcCtrl := "b000".U
@@ -77,10 +78,20 @@ class Controler extends Module {
             io.MemWrite := false.B
             io.ImmSrc := "b10".U
             io.AluSrc := false.B //doesnt matter
-            io.ResSrc := true.B //doesnt matter
+            io.ResSrc := "b00".U //doesnt matter
             io.Br := true.B
-            io.operation := "b011".U //doesnt matter
+            io.operation := "b011".U
             io.PcCtrl := "b001".U
+        }
+        is ("b1101111".U ){ //jal instructions
+            io.RegWrite := true.B
+            io.MemWrite := false.B
+            io.ImmSrc := "b11".U
+            io.AluSrc := false.B //doesnt matter
+            io.ResSrc := "b00".U // needs to change
+            io.Br := false.B
+            io.operation := "b100".U
+            io.PcCtrl := "b010".U 
         }
     }
 
@@ -131,6 +142,14 @@ class Controler extends Module {
         io.BrCtrl := "b10111".U //gue
     }
     .otherwise{io.BrCtrl := 26.U //err
+    }
+
+    when(io.operation === "b100".U) {
+        io.JmpCtrl === "b00".U
+    }.elsewhen(io.operation === "b101".U && io.funct3 === "b000".U){
+        io.JmpCtrl === "b01".U
+    }
+    .otherwise{io.JmpCtrl := 26.U //err 
     }
 
 

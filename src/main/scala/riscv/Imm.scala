@@ -8,6 +8,7 @@ class Imm extends Module {
         val Imm_Itype = Input(UInt(32.W))
         val Imm_Stype = Input(UInt(32.W))
         val Imm_Btype = Input(UInt(32.W))
+        val Imm_Jtype = Input(UInt(32.W))
         val Imm_output = Output(UInt(32.W))
         
     })
@@ -18,6 +19,8 @@ class Imm extends Module {
         io.Imm_output := io.Imm_Stype
     }.elsewhen (io.ImmSrc === "b10".U ){
         io.Imm_output := io.Imm_Btype
+    }.elsewhen (io.ImmSrc === "b11".U ){
+        io.Imm_output := io.Imm_Jtype
     }.otherwise {
         io.Imm_output := 20.U // 22 is code err
     }

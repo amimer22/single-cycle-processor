@@ -5,18 +5,23 @@ import chisel3._
 // to determin if it's from load or normal arithmetic
 class ResultSel extends Module {
     val io = IO(new Bundle {
-        val ResSrc = Input(Bool())
+        val ResSrc = Input(UInt(2.W))
         val AluRes = Input(UInt(32.W))
         val ReadData = Input(UInt(32.W))
-
+        val nextPcAddr = Input(UInt(32.W))
         val Result = Output(UInt(32.W))
         //val err = Output(UInt(32.W))
     })
     
-    when (io.ResSrc){ //From ALU
+    when (io.ResSrc === "b00".U){ //From ALU
         io.Result := io.AluRes
-    }.otherwise { //From Memory
+    }
+    .elsewhen(io.ResSrc === "b01".U){ //From Memory
         io.Result := io.ReadData
+    }.elsewhen(io.ResSrc === "b10".U){ //From pcinc
+        io.Result := io.nextPcAddr
+    }.otherwise { //err
+        io.Result := 22.U
     }
  
     

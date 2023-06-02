@@ -39,6 +39,7 @@ class Main extends Module {
     val SUB = Module(new SUB())
     val AND = Module(new AND())
     val OR = Module(new OR())
+    val Jump = Module(new Jump())
     val Branch = Module(new Branch())
     val BrTarget = Module(new BrTarget())
     //val OperationSel = Module(new OperationSel())
@@ -92,12 +93,17 @@ class Main extends Module {
     Imm.io.ImmSrc := Controler.io.ImmSrc
     Imm.io.Imm_Itype := IMemory.io.instruction(31,20)
     Imm.io.Imm_Stype := Cat(IMemory.io.instruction(31,25),IMemory.io.instruction(11,7)) 
-    Imm.io.Imm_Btype := Cat(IMemory.io.instruction(31),IMemory.io.instruction(7),IMemory.io.instruction(30,25),IMemory.io.instruction(11,8)) 
+    Imm.io.Imm_Btype := Cat(IMemory.io.instruction(31),IMemory.io.instruction(7),IMemory.io.instruction(30,25),IMemory.io.instruction(11,8))
+    Imm.io.Imm_Jtype := Cat(IMemory.io.instruction(31),IMemory.io.instruction(19,12),IMemory.io.instruction(20),IMemory.io.instruction(30,21)) 
     //ImmOpr2Sel
     ImmOpr2Sel.io.AluSrc := Controler.io.AluSrc
     ImmOpr2Sel.io.Opr2_input := OPR2read.io.datas2out
     ImmOpr2Sel.io.Imm_input := Imm.io.Imm_output
-
+    //
+    Jump.io.JmpCtrl := Controler.io.JmpCtrl
+    Jump.io.Jal_imm := Imm.io.Imm_Jtype
+    Jump.io.JalR_imm := Imm.io.Imm_Itype
+    Jump.io.Datas1 := OPR1read.io.datas1out
     //branch
     Branch.io.Br := Controler.io.Br
     Branch.io.BrCtrl := Controler.io.BrCtrl
@@ -145,14 +151,16 @@ class Main extends Module {
     ResultSel.io.ResSrc := Controler.io.ResSrc
     ResultSel.io.ReadData := DataMemory.io.ReadData
     ResultSel.io.AluRes := AluOutput.io.output  // output should be named ALURES
-
+    ResultSel.io.nextPcAddr := PcInc.io.IPInc_out
+    //
     RegisterFile.io.datawr := ResultSel.io.Result
 
     //pcinc
-    PcInc.io.IPInc_in := Pc.io.IP_out
+    PcInc.io.IPInc_in := Pc.io.IP_out // maybe err here
     //pc cntrl
     PcCtrl.io.IP_incremented := PcInc.io.IPInc_out
     PcCtrl.io.IP_Branched := BrTarget.io.B_output
+    PcCtrl.io.IP_Jumped := Jump.io.J_output
 
     Pc.io.IP_in := PcCtrl.io.IP
     //PcCtrl.io.IP_Jumped 
