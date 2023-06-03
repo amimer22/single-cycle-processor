@@ -25,8 +25,8 @@ class IMemory extends Module {
     Memory.write(5.U, "b0000000_00010_00001_000_00011_0010011".U)//addi x3,x2,x1
     Memory.write(6.U, "b0000000_00101_00001_010_00011_0000011".U)//LW x3,5(x1) result 5+6=11 memory(11)=20
     Memory.write(7.U, "b0000000_00010_00001_010_00011_0100011".U)//SW x2,3(x1) result 3+6=9 memory(9)=5
-    Memory.write(8.U, "b0000000_00100_00000_000_00011_1101111".U)//jal x3,2
-    //Memory.write(9.U, "b0000000_00010_00001_000_00011_0110011".U)//add x3,x2,x1
+    //Memory.write(8.U, "b0000000_00100_00000_000_00011_1101111".U)//jal x3,2
+    Memory.write(8.U, "b0000000_00010_00010_000_00011_1100111".U)//jalr x3,x2,2
 
 
 

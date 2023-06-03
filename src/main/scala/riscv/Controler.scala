@@ -93,6 +93,16 @@ class Controler extends Module {
             io.operation := "b100".U
             io.PcCtrl := "b010".U 
         }
+        is ("b1100111".U ){ //jal instructions
+            io.RegWrite := true.B
+            io.MemWrite := false.B
+            io.ImmSrc := "b00".U
+            io.AluSrc := false.B //doesnt matter
+            io.ResSrc := "b10".U // needs to change
+            io.Br := false.B
+            io.operation := "b101".U
+            io.PcCtrl := "b010".U 
+        }
     }
 
     when(io.operation === "b000".U && io.funct3 === "b000".U && io.funct7 === "b0000000".U){
