@@ -6,10 +6,10 @@ import chisel3._
 class PcCtrl extends Module {
     val io = IO(new Bundle {
         val PcCtrl = Input(UInt(3.W))
-        val IP_incremented = Input(UInt(32.W))
-        val IP_Branched = Input(UInt(32.W))
-        val IP_Jumped = Input(UInt(32.W))
-        val IP = Output(UInt(32.W))
+        val IP_incremented = Input(SInt(32.W))
+        val IP_Branched = Input(SInt(32.W))
+        val IP_Jumped = Input(SInt(32.W))
+        val IP = Output(SInt(32.W))
 
     })
 
@@ -25,7 +25,7 @@ class PcCtrl extends Module {
         io.IP := io.IP_Jumped
     }
     .otherwise { //normal
-        io.IP := 44.U //err just testing
+        io.IP := 44.S//err just testing
     }
 
 }

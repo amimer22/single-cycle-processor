@@ -6,13 +6,13 @@ import chisel3._
 class OPR1read extends Module {
     val io = IO(new Bundle {
         val addrs1in = Input(UInt(5.W))
-        val datas1in = Input(UInt(32.W))
+        val datas1in = Input(SInt(32.W))
         val addrs1out = Output(UInt(5.W))
-        val datas1out = Output(UInt(32.W))
+        val datas1out = Output(SInt(32.W))
 
     })
     val OPR1addr1 = Wire(UInt(5.W)) //addr output 
-    val OPR1data1 = Wire(UInt(32.W)) //data output
+    val OPR1data1 = Wire(SInt(32.W)) //data output
     OPR1addr1 := io.addrs1in
     OPR1data1 := io.datas1in
 

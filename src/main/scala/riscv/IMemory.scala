@@ -16,8 +16,8 @@ class IMemory extends Module {
     val Memory = Mem ( 32 , UInt ( 32.W ) )
     //io.instructionadd1 := io.instruction(19,15)
     //io.instructionadd2 := io.instruction(24,20)
-
-    Memory.write(0.U, "b0000000_00010_00001_000_00011_0110011".U)//add x3,x2,x1
+    Memory.write(0.U, "b111111111101_00001_000_00011_0010011".U)//addi x3,x1,-2
+    //Memory.write(0.U, "b0000000_00010_00001_000_00011_0110011".U)//add x3,x2,x1
     Memory.write(1.U, "b0000000_00001_00000_000_01000_1100011".U)//beq x0,x1,4
     Memory.write(2.U, "b0100000_00010_00001_000_00000_0110011".U)//sub x0,x2,x1
     Memory.write(3.U, "b0000000_00001_00010_111_00011_0110011".U)//and x3,x2,x1

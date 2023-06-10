@@ -1,7 +1,7 @@
 package riscv
 import chisel3._
 
-class SUB extends Module {
+class SignNum extends Module {
   val io = IO(new Bundle {
     val op1 = Input(SInt(32.W))
     val op2 = Input(SInt(32.W))
@@ -15,5 +15,4 @@ class SUB extends Module {
 
   io.result := io.op1 - io.op2
 
-  
 }

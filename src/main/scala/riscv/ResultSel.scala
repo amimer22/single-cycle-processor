@@ -6,10 +6,10 @@ import chisel3._
 class ResultSel extends Module {
     val io = IO(new Bundle {
         val ResSrc = Input(UInt(2.W))
-        val AluRes = Input(UInt(32.W))
-        val ReadData = Input(UInt(32.W))
-        val nextPcAddr = Input(UInt(32.W))
-        val Result = Output(UInt(32.W))
+        val AluRes = Input(SInt(32.W))
+        val ReadData = Input(SInt(32.W))
+        val nextPcAddr = Input(SInt(32.W))
+        val Result = Output(SInt(32.W))
         //val err = Output(UInt(32.W))
     })
     
@@ -21,7 +21,7 @@ class ResultSel extends Module {
     }.elsewhen(io.ResSrc === "b10".U){ //From pcinc
         io.Result := io.nextPcAddr
     }.otherwise { //err
-        io.Result := 22.U
+        io.Result := 22.S
     }
  
     

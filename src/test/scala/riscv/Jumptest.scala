@@ -10,22 +10,22 @@ class Jumptest extends FlatSpec with  ChiselScalatestTester {
   it should "increment PC depending on jump jalr" in {
     test(new Main) { c =>
       
-      c.io.output.expect("h0".U)
+      c.io.output.expect(0.S)
       c.clock.step()
-      c.io.output.expect("h1".U)
+      c.io.output.expect(1.S)
       //c.io.input1.expect("b10000".U)
       c.clock.step()
-      c.io.output.expect("h5".U) //branch to pc=5
+      c.io.output.expect(5.S) //branch to pc=5
       c.clock.step()
-      c.io.output.expect("h6".U)
+      c.io.output.expect(6.S)
       c.clock.step()
-      c.io.output.expect("h7".U)
+      c.io.output.expect(7.S)
       c.clock.step()
-      c.io.output.expect("h8".U)
-      c.io.input1.expect("h9".U)//next pc address
+      c.io.output.expect(8.S)
+      //c.io.input1.expect(9.U)//next pc address
       c.clock.step()
-      c.io.output.expect("h2".U) //jump to pc =2
-      c.io.input1.expect("h6".U)
+      c.io.output.expect(2.S) //jump to pc =2
+      //c.io.input1.expect(6.U)
       
     }
   }

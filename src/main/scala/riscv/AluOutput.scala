@@ -4,11 +4,11 @@ import chisel3._
 class AluOutput extends Module {
   val io = IO(new Bundle {
     //val operation = Input(UInt(32.W))
-    val AddRes = Input(UInt(32.W))
-    val SubRes = Input(UInt(32.W))
-    val AndRes = Input(UInt(32.W))
-    val OrRes = Input(UInt(32.W))
-    val output = Output(UInt(32.W))
+    val AddRes = Input(SInt(32.W))
+    val SubRes = Input(SInt(32.W))
+    val AndRes = Input(SInt(32.W))
+    val OrRes = Input(SInt(32.W))
+    val output = Output(SInt(32.W))
     val AluCtrl = Input(UInt(3.W))
   })
 
@@ -21,7 +21,7 @@ class AluOutput extends Module {
         }.elsewhen (io.AluCtrl ==="b011".U) {
         io.output := io.OrRes
         }.otherwise {
-        io.output := 0.U
+        io.output := 0.S
         }
     /*switch(io.AluCtrl) {
         is("b00001".U) {

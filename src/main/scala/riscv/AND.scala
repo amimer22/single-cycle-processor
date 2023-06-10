@@ -3,10 +3,10 @@ import chisel3._
 
 class AND extends Module {
   val io = IO(new Bundle {
-    val op1 = Input(UInt(32.W))
-    val op2 = Input(UInt(32.W))
+    val op1 = Input(SInt(32.W))
+    val op2 = Input(SInt(32.W))
     //val aluop = Input(UInt(3.W))
-    val result = Output(UInt(32.W))
+    val result = Output(SInt(32.W))
     //val zero = Output(Bool()) //flag of zero
   })
 

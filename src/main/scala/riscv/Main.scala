@@ -10,17 +10,17 @@ class Main extends Module {
     val io = IO(new Bundle {
         //val input = Input(UInt(32.W))  //only for test 
         //
-        val input1 = Output(UInt(5.W))
+        //val input1 = Output(UInt(5.W))
         //val input2 = Output(UInt(5.W))
         //val input3 = Output(UInt(5.W))
-        //val input4 = Output(UInt(32.W))
-        //val input5 = Output(UInt(32.W))
-        //val input6 = Output(UInt(32.W))
+        val Data1 = Output(SInt(32.W))
+        val Data2 = Output(SInt(32.W))
+        val Dataout = Output(SInt(32.W))
 
         //val input5 = Output(Bool())
 
 
-        val output = Output(UInt(32.W))
+        val output = Output(SInt(32.W))
     })
     //module objects
     val Controler = Module(new Controler())
@@ -55,7 +55,9 @@ class Main extends Module {
     //io.input2 := IMemory.io.instruction(24,20)
     //IMemory.io.IPmem_in := io.input    // only for test
     io.output := Pc.io.IP_out
-    IMemory.io.IPmem_in := Pc.io.IP_out 
+    val IPunit = Wire(SInt(32.W))
+    IPunit := Pc.io.IP_out 
+    IMemory.io.IPmem_in := IPunit.asUInt
     
     //controler
     Controler.io.opcode := IMemory.io.instruction(6,0)
@@ -90,11 +92,23 @@ class Main extends Module {
     //io.input2 :=  OPR2read.io.datas2in //5
 
     //Imm
+    //val Itype = Wire(UInt(32.W))
+    val Stype = Wire(UInt(32.W))
+    val Btype = Wire(UInt(32.W))
+    val Jtype = Wire(UInt(32.W))
+    //Itype := IMemory.io.instruction(31,20)
+    Stype := Cat(IMemory.io.instruction(31,25),IMemory.io.instruction(11,7)) 
+    Btype :=  Cat(IMemory.io.instruction(31),IMemory.io.instruction(7),IMemory.io.instruction(30,25),IMemory.io.instruction(11,8))
+    Jtype := Cat(IMemory.io.instruction(31),IMemory.io.instruction(19,12),IMemory.io.instruction(20),IMemory.io.instruction(30,21)) 
     Imm.io.ImmSrc := Controler.io.ImmSrc
-    Imm.io.Imm_Itype := IMemory.io.instruction(31,20)
-    Imm.io.Imm_Stype := Cat(IMemory.io.instruction(31,25),IMemory.io.instruction(11,7)) 
-    Imm.io.Imm_Btype := Cat(IMemory.io.instruction(31),IMemory.io.instruction(7),IMemory.io.instruction(30,25),IMemory.io.instruction(11,8))
-    Imm.io.Imm_Jtype := Cat(IMemory.io.instruction(31),IMemory.io.instruction(19,12),IMemory.io.instruction(20),IMemory.io.instruction(30,21)) 
+    //Imm.io.Imm_Itype := Itype.asSInt
+    //Imm.io.Imm_Stype := Stype.asSInt
+    //Imm.io.Imm_Btype := Btype.asSInt
+    //Imm.io.Imm_Jtype := Jtype.asSInt
+    Imm.io.Imm_Itype := (Cat(Fill(20,IMemory.io.instruction(31)),IMemory.io.instruction(31,20))).asSInt
+    Imm.io.Imm_Stype := (Cat(Fill(20,Stype(11)),Stype)).asSInt
+    Imm.io.Imm_Btype := (Cat(Fill(19,Btype(12)),Btype)).asSInt
+    Imm.io.Imm_Jtype := (Cat(Fill(12,Jtype(20)),Jtype)).asSInt
     //ImmOpr2Sel
     ImmOpr2Sel.io.AluSrc := Controler.io.AluSrc
     ImmOpr2Sel.io.Opr2_input := OPR2read.io.datas2out
@@ -120,8 +134,8 @@ class Main extends Module {
     //ADD.io.op2 := OPR2read.io.datas2out
     ADD.io.op2 := ImmOpr2Sel.io.ImmOp2Sel_output
 
-    //io.input5 := ADD.io.op1
-    //io.input6 := ADD.io.op2
+    io.Data1 := ADD.io.op1
+    io.Data2 := ADD.io.op2
     //SUB
     SUB.io.op1 := OPR1read.io.datas1out
     SUB.io.op2 := ImmOpr2Sel.io.ImmOp2Sel_output
@@ -140,10 +154,14 @@ class Main extends Module {
     AluOutput.io.AndRes := AND.io.result
     AluOutput.io.OrRes := OR.io.result
 
+    io.Dataout := AluOutput.io.AddRes
 
     //DataMemory
+
+    val AluoutUint = Wire(SInt(32.W))
+    AluoutUint := AluOutput.io.output
     DataMemory.io.MemWrite := Controler.io.MemWrite
-    DataMemory.io.ReadAddr := AluOutput.io.output 
+    DataMemory.io.ReadAddr := AluoutUint.asUInt 
     DataMemory.io.dataSin := OPR2read.io.datas2out 
 
     //ResultSel
@@ -154,7 +172,7 @@ class Main extends Module {
     ResultSel.io.nextPcAddr := PcInc.io.IPInc_out
     //
     RegisterFile.io.datawr := ResultSel.io.Result
-    io.input1 := RegisterFile.io.datawr
+    //io.input1 := RegisterFile.io.datawr
     //pcinc
     PcInc.io.IPInc_in := Pc.io.IP_out // maybe err here
     

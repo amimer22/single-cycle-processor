@@ -6,13 +6,13 @@ class BrTarget extends Module {
     val io = IO(new Bundle {
         
         val Br_up = Input(Bool())
-        val IP_init = Input(UInt(32.W))
-        val B_imm = Input(UInt(32.W))
-        val B_output = Output(UInt(32.W))
+        val IP_init = Input(SInt(32.W))
+        val B_imm = Input(SInt(32.W))
+        val B_output = Output(SInt(32.W))
 
     })
-    val B_imm_inc = Wire(UInt(32.W))
-    B_imm_inc := io.IP_init + 1.U
+    val B_imm_inc = Wire(SInt(32.W))
+    B_imm_inc := io.IP_init + 1.S
     when(io.Br_up){
         io.B_output := io.B_imm + io.IP_init
     }
