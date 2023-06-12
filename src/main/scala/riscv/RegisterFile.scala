@@ -29,9 +29,9 @@ class RegisterFile extends Module{
     } 
     
     // when writing data on specific register on li or mv instructions or when writing alu result
-    registers.write(0.U, 6.S)
-    registers.write(1.U, -5.S)
-    registers.write(2.U, -6.S)
+    //registers.write(0.U, 6.S)
+    //registers.write(1.U, -5.S)
+    //registers.write(2.U, -6.S)
     //registers.write(3.U, 5.U)
     
     //registers.write(3.U, 9.U)

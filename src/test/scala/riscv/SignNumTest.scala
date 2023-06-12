@@ -15,9 +15,9 @@ class SignNumTest extends FlatSpec with  ChiselScalatestTester {
       //c.io.op2.poke(6.S)
       //
       //c.io.result.expect(-11.S)
-      c.io.Data1.expect(-5.S)
-      c.io.Data2.expect(-3.S)
-      c.io.Dataout.expect(-8.S)
+      c.io.Data1.expect(0.S)
+      c.io.Data2.expect(5.S)
+      c.io.Dataout.expect(5.S)
       
 
     }

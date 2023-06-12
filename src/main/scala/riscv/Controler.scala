@@ -93,7 +93,7 @@ class Controler extends Module {
             io.operation := "b100".U
             io.PcCtrl := "b010".U 
         }
-        is ("b1100111".U ){ //jal instructions
+        is ("b1100111".U ){ //jalR instructions
             io.RegWrite := true.B
             io.MemWrite := false.B
             io.ImmSrc := "b00".U

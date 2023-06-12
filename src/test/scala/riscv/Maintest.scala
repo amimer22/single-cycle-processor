@@ -5,9 +5,9 @@ import chiseltest._
 import org.scalatest._
 
 class Maintest extends FlatSpec with  ChiselScalatestTester {
-  behavior of "Pc"
+  behavior of "all"
 
-  it should "increment PC after every cycle" in {
+  it should "final test all instructions" in {
     test(new Main) { c =>
       // Example R-type instruction: ADD rd, rs1, rs2
       //val IP = "h6".U
@@ -15,18 +15,64 @@ class Maintest extends FlatSpec with  ChiselScalatestTester {
 //
       //val addrs1 = "b00001".U
       //c.io.input1.poke(addrs1)
-      
+      //c.clock.step()
+      //c.io.Booltest.expect(true.B)
+      c.io.Data1.expect(0.S)
+      c.io.Data2.expect(5.S)
+      c.io.Dataout.expect(5.S)
       c.io.output.expect(0.S)
+
       c.clock.step()
-      c.io.output.expect(0.S)
+      c.io.Data1.expect(0.S)
+      c.io.Data2.expect(12.S)
+      c.io.Dataout.expect(12.S)
+      c.io.output.expect(1.S)
+
       c.clock.step()
+      c.io.Data1.expect(12.S)
+      c.io.Data2.expect(-9.S)
+      c.io.Dataout.expect(3.S)
       c.io.output.expect(2.S)
+
       c.clock.step()
+      c.io.Data1.expect(5.S)
+      c.io.Data2.expect(3.S)
+      c.io.Dataout.expect(7.S)
       c.io.output.expect(3.S)
+
       c.clock.step()
+      c.io.Data1.expect(12.S)
+      c.io.Data2.expect(7.S)
+      c.io.Dataout.expect(4.S)
       c.io.output.expect(4.S)
+
       c.clock.step()
+      c.io.Data1.expect(4.S)
+      c.io.Data2.expect(7.S)
+      c.io.Dataout.expect(11.S)
       c.io.output.expect(5.S)
+
+      c.clock.step()
+      c.io.Brpc.expect(6.S)
+      c.io.Brimm.expect(8.S)
+      c.io.BrDtaout.expect(7.S)
+      c.io.output.expect(6.S)
+
+      c.clock.step()
+      c.io.Data1.expect(0.S)
+      c.io.Data2.expect(11.S)
+      c.io.Dataout.expect(11.S)
+      c.io.output.expect(7.S)
+
+      c.clock.step()
+      c.io.BrData1.expect(11.S)
+      c.io.BrData2.expect(11.S)
+      c.io.Brpc.expect(8.S)
+      c.io.Brimm.expect(-4.S)
+      c.io.BrDtaout.expect(4.S)
+      c.io.output.expect(8.S)
+
+
       //c.clock.step()
       //c.io.output.expect("h1".U)
       //c.clock.step()

@@ -17,6 +17,11 @@ class Main extends Module {
         val Data2 = Output(SInt(32.W))
         val Dataout = Output(SInt(32.W))
 
+        val Brpc = Output(SInt(32.W))
+        val Brimm = Output(SInt(32.W))
+        val BrDtaout = Output(SInt(32.W))
+        val BrData1 = Output(SInt(32.W))
+        val BrData2 = Output(SInt(32.W))
         //val input5 = Output(Bool())
 
 
@@ -93,13 +98,13 @@ class Main extends Module {
 
     //Imm
     //val Itype = Wire(UInt(32.W))
-    val Stype = Wire(UInt(32.W))
-    val Btype = Wire(UInt(32.W))
-    val Jtype = Wire(UInt(32.W))
+    val Stype = Wire(SInt(32.W))
+    val Btype = Wire(SInt(32.W))
+    val Jtype = Wire(SInt(32.W))
     //Itype := IMemory.io.instruction(31,20)
-    Stype := Cat(IMemory.io.instruction(31,25),IMemory.io.instruction(11,7)) 
-    Btype :=  Cat(IMemory.io.instruction(31),IMemory.io.instruction(7),IMemory.io.instruction(30,25),IMemory.io.instruction(11,8))
-    Jtype := Cat(IMemory.io.instruction(31),IMemory.io.instruction(19,12),IMemory.io.instruction(20),IMemory.io.instruction(30,21)) 
+    Stype := Cat(IMemory.io.instruction(31,25),IMemory.io.instruction(11,7)).asSInt
+    Btype :=  Cat(IMemory.io.instruction(31),IMemory.io.instruction(7),IMemory.io.instruction(30,25),IMemory.io.instruction(11,8)).asSInt
+    Jtype := Cat(IMemory.io.instruction(31),IMemory.io.instruction(19,12),IMemory.io.instruction(20),IMemory.io.instruction(30,21)).asSInt
     Imm.io.ImmSrc := Controler.io.ImmSrc
     //Imm.io.Imm_Itype := Itype.asSInt
     //Imm.io.Imm_Stype := Stype.asSInt
@@ -107,7 +112,7 @@ class Main extends Module {
     //Imm.io.Imm_Jtype := Jtype.asSInt
     Imm.io.Imm_Itype := (Cat(Fill(20,IMemory.io.instruction(31)),IMemory.io.instruction(31,20))).asSInt
     Imm.io.Imm_Stype := (Cat(Fill(20,Stype(11)),Stype)).asSInt
-    Imm.io.Imm_Btype := (Cat(Fill(19,Btype(12)),Btype)).asSInt
+    Imm.io.Imm_Btype := (Cat(Fill(19,IMemory.io.instruction(31)),Btype)).asSInt
     Imm.io.Imm_Jtype := (Cat(Fill(12,Jtype(20)),Jtype)).asSInt
     //ImmOpr2Sel
     ImmOpr2Sel.io.AluSrc := Controler.io.AluSrc
@@ -124,11 +129,16 @@ class Main extends Module {
     //io.input1 := Branch.io.BrCtrl
     Branch.io.Datas1 := OPR1read.io.datas1out
     Branch.io.Datas2 := OPR2read.io.datas2out
-
+    io.BrData1 := Branch.io.Datas1
+    io.BrData2 := Branch.io.Datas2
     //BrTarget
     BrTarget.io.IP_init := Pc.io.IP_out
     BrTarget.io.Br_up := Branch.io.Br_up
     BrTarget.io.B_imm := Imm.io.Imm_Btype
+
+    io.Brpc := BrTarget.io.IP_init
+    io.Brimm := BrTarget.io.B_imm
+    io.BrDtaout := BrTarget.io.B_output
     //ADD
     ADD.io.op1 := OPR1read.io.datas1out
     //ADD.io.op2 := OPR2read.io.datas2out
@@ -154,7 +164,7 @@ class Main extends Module {
     AluOutput.io.AndRes := AND.io.result
     AluOutput.io.OrRes := OR.io.result
 
-    io.Dataout := AluOutput.io.AddRes
+    io.Dataout := AluOutput.io.output
 
     //DataMemory
 
