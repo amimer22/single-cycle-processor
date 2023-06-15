@@ -3,13 +3,13 @@
     "class":"firrtl.transforms.DedupedResult",
     "original":"~Main|OPR1read",
     "duplicate":"~Main|Main/OPR1read:OPR1read",
-    "index":0.21428571428571427
+    "index":0.3
   },
   {
     "class":"firrtl.transforms.DedupedResult",
     "original":"~Main|OPR2read",
     "duplicate":"~Main|Main/OPR2read:OPR1read",
-    "index":0.2857142857142857
+    "index":0.35
   },
   {
     "class":"firrtl.EmitCircuitAnnotation",
@@ -18,47 +18,5 @@
   {
     "class":"firrtl.transforms.BlackBoxTargetDirAnno",
     "targetDir":"."
-  },
-  {
-    "class":"firrtl.transforms.CombinationalPath",
-    "sink":"~Main|Main>io_input3",
-    "sources":[
-      "~Main|Main>io_input"
-    ]
-  },
-  {
-    "class":"firrtl.transforms.CombinationalPath",
-    "sink":"~Main|Main>io_input6",
-    "sources":[
-      "~Main|Main>io_input"
-    ]
-  },
-  {
-    "class":"firrtl.transforms.CombinationalPath",
-    "sink":"~Main|Main>io_input1",
-    "sources":[
-      "~Main|Main>io_input"
-    ]
-  },
-  {
-    "class":"firrtl.transforms.CombinationalPath",
-    "sink":"~Main|Main>io_input5",
-    "sources":[
-      "~Main|Main>io_input"
-    ]
-  },
-  {
-    "class":"firrtl.transforms.CombinationalPath",
-    "sink":"~Main|Main>io_input4",
-    "sources":[
-      "~Main|Main>io_input"
-    ]
-  },
-  {
-    "class":"firrtl.transforms.CombinationalPath",
-    "sink":"~Main|Main>io_input2",
-    "sources":[
-      "~Main|Main>io_input"
-    ]
   }
 ]

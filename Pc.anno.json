@@ -6,12 +6,5 @@
   {
     "class":"firrtl.transforms.BlackBoxTargetDirAnno",
     "targetDir":"."
-  },
-  {
-    "class":"firrtl.transforms.CombinationalPath",
-    "sink":"~IMemory|IMemory>io_instruction",
-    "sources":[
-      "~IMemory|IMemory>io_IPmem_in"
-    ]
   }
 ]

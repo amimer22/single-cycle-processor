@@ -10,7 +10,7 @@ class Main extends Module {
     val io = IO(new Bundle {
         //val input = Input(UInt(32.W))  //only for test 
         //
-        //val input1 = Output(UInt(5.W))
+        val Ctrltest = Output(UInt(3.W))
         //val input2 = Output(UInt(5.W))
         //val input3 = Output(UInt(5.W))
         val Data1 = Output(SInt(32.W))
@@ -159,6 +159,7 @@ class Main extends Module {
 
     //AluOutput
     AluOutput.io.AluCtrl := Controler.io.AluCtrl
+    io.Ctrltest := AluOutput.io.AluCtrl
     AluOutput.io.AddRes := ADD.io.result
     AluOutput.io.SubRes := SUB.io.result
     AluOutput.io.AndRes := AND.io.result

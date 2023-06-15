@@ -1,5 +1,6 @@
 package riscv 
 import chisel3._ 
+import chisel3.stage.ChiselStage
 
 class PcInc extends Module {
     val io = IO(new Bundle {
@@ -12,4 +13,7 @@ class PcInc extends Module {
     io.IPInc_out := IPInc_tmp
     //io.IP_in= 0.U;
     //io.IP_in = io.IP_out + 1.U
+}
+object PcInc extends App {
+  (new ChiselStage).emitVerilog(new PcInc)
 }

@@ -21,7 +21,7 @@ class AluOutput extends Module {
         }.elsewhen (io.AluCtrl ==="b011".U) {
         io.output := io.OrRes
         }.otherwise {
-        io.output := 0.S
+        io.output := 2.S
         }
     /*switch(io.AluCtrl) {
         is("b00001".U) {

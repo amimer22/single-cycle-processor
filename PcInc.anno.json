@@ -9,9 +9,9 @@
   },
   {
     "class":"firrtl.transforms.CombinationalPath",
-    "sink":"~IMemory|IMemory>io_instruction",
+    "sink":"~PcInc|PcInc>io_IPInc_out",
     "sources":[
-      "~IMemory|IMemory>io_IPmem_in"
+      "~PcInc|PcInc>io_IPInc_in"
     ]
   }
 ]
