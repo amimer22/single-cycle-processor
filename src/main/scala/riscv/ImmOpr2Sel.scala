@@ -1,6 +1,8 @@
 package riscv 
 import chisel3._
 import chisel3.util._
+import chisel3.stage.ChiselStage
+
 
 class ImmOpr2Sel extends Module {
     val io = IO(new Bundle {
@@ -19,4 +21,7 @@ class ImmOpr2Sel extends Module {
     }
  
     
+}
+object ImmOpr2Sel extends App {
+  (new ChiselStage).emitVerilog(new ImmOpr2Sel)
 }

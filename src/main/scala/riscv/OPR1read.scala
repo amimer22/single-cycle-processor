@@ -1,6 +1,7 @@
 // this module works if theres a br jmp 
 package riscv 
 import chisel3._
+import chisel3.stage.ChiselStage
 
 
 class OPR1read extends Module {
@@ -38,4 +39,7 @@ class OPR1read extends Module {
     //io.datas1 := RegNext(dataRead)
     
 
+}
+object OPR1read extends App {
+  (new ChiselStage).emitVerilog(new OPR1read)
 }

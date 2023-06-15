@@ -2,6 +2,7 @@
 package riscv 
 import chisel3._
 import chisel3.util._
+import chisel3.stage.ChiselStage
 
 class RegisterFile extends Module{
     val io = IO(new Bundle {
@@ -29,10 +30,10 @@ class RegisterFile extends Module{
     } 
     
     // when writing data on specific register on li or mv instructions or when writing alu result
-    //registers.write(0.U, 6.S)
-    //registers.write(1.U, -5.S)
-    //registers.write(2.U, -6.S)
-    //registers.write(3.U, 5.U)
+    //registers.write(0.U, 10.S)
+    //registers.write(1.U, 15.S)
+    //registers.write(2.U, 26.S)
+    //registers.write(3.U, 35.S)
     
     //registers.write(3.U, 9.U)
 //io.wrtest := io.wrtest1
@@ -40,15 +41,9 @@ class RegisterFile extends Module{
     io.data1 := registers(io.addr1)
     io.data2 := registers(io.addr2)
 
-    
-
-     // reading data from a register
-
-    // Read data from the register file at the specified address
-    //val dataRead = registers(io.addr)
-
-    // Use a RegNext register to assign the updated value to io.data
-    //io.data := RegNext(dataRead)
 
 
+}
+object RegisterFile extends App {
+  (new ChiselStage).emitVerilog(new RegisterFile)
 }

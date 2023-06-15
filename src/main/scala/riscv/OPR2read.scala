@@ -1,6 +1,7 @@
 // this module works if theres a br jmp 
 package riscv 
 import chisel3._
+import chisel3.stage.ChiselStage
 
 
 class OPR2read extends Module {
@@ -27,39 +28,9 @@ class OPR2read extends Module {
     //
     io.addrs2out := OPR2addr2
     io.datas2out := OPR2data2 // vers DataMemory
-    //when(io.R_type){
-    //io.datas2out := OPR2data2
-    //io.dataSout := 22.U
-    //}.elsewhen(io.Imm_type){
-    //io.datas2out := io.immin
-    //io.dataSout := 22.U 
-    //}.elsewhen(io.S_type){
-    //io.datas2out := io.Simmin
-    //io.dataSout := OPR2data2
-    //}.otherwise{
-    //    io.datas2out := 22.U
-    //    io.dataSout := 22.U
-    //}
-
-
-    //io.addrs2_out := io.addrs2_in
-    //io.datas2_out := io.datas2_in
-//
-    //val RegisterFile = Module(new RegisterFile())//
-
-    //RegisterFile.io.addr := OPR2addr2 //
-    //io.datas2 := RegisterFile.io.data
-    //RegisterFile.io.addr := io.addrs2
-    //io.datas2 := RegisterFile.io.data
+   
     
-    /*val addrRead = Wire(UInt(32.W))
-    val dataRead = Wire(UInt(32.W))
-
-    // Assign the updated values to the Wire variables
-    addrRead := io.addrs2
-    dataRead := RegisterFile.io.data
-
-    // Use RegNext registers to assign the updated values to the output ports
-    io.datas2 := RegNext(dataRead)*/
-
+}
+object OPR2read extends App {
+  (new ChiselStage).emitVerilog(new OPR2read)
 }
