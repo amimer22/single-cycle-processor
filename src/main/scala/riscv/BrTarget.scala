@@ -1,6 +1,8 @@
 package riscv 
 import chisel3._ 
 import chisel3.util._
+import chisel3.stage.ChiselStage
+
 
 class BrTarget extends Module {
     val io = IO(new Bundle {
@@ -19,4 +21,7 @@ class BrTarget extends Module {
     .otherwise{io.B_output := B_imm_inc}
     
 
+}
+object BrTarget extends App {
+  (new ChiselStage).emitVerilog(new BrTarget)
 }

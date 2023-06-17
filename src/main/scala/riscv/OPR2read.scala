@@ -10,8 +10,8 @@ class OPR2read extends Module {
         //val R_type = Input(Bool())
         //val S_type = Input(Bool())
         //val Simmin = Input(UInt(32.W))
-        //val immin = Input(UInt(32.W))
-        val addrs2in = Input(UInt(5.W))
+        val instruction_addr2 = Input(UInt(32.W))
+        ///val addrs2in = Input(UInt(5.W))
         val datas2in = Input(SInt(32.W))
         val addrs2out = Output(UInt(5.W))
         val datas2out = Output(SInt(32.W))
@@ -23,7 +23,8 @@ class OPR2read extends Module {
     val OPR2addr2 = Wire(UInt(5.W)) //addr output 
     val OPR2data2 = Wire(SInt(32.W)) //data output
 
-    OPR2addr2 := io.addrs2in
+    OPR2addr2 := io.instruction_addr2(24,20)
+    //OPR2addr2 := io.addrs2in
     OPR2data2 := io.datas2in
     //
     io.addrs2out := OPR2addr2

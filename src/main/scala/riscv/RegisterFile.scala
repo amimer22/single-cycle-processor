@@ -6,11 +6,12 @@ import chisel3.stage.ChiselStage
 
 class RegisterFile extends Module{
     val io = IO(new Bundle {
+        val instruction_addrwr = Input(UInt(32.W))
         val addr1 = Input(UInt(5.W))
         val data1 = Output(SInt(32.W))
         val addr2 = Input(UInt(5.W))
         val data2 = Output(SInt(32.W))
-        val addrwr = Input(UInt(5.W))
+        //val addrwr = Input(UInt(5.W))
         val datawr = Input(SInt(32.W))
         //val WE = Input(Bool())
         val RegWrite = Input(Bool())
@@ -20,13 +21,15 @@ class RegisterFile extends Module{
     })
     //val adress = io.addrwr
     //val data = io.datawr
+    val addrwr = Wire(UInt(5.W))
+    addrwr := io.instruction_addrwr(11,7)
     val registers = Mem(32, SInt(32.W))
     when(io.RegWrite) {
     //registers.write(io.addrwr, io.datawr)
-        registers(io.addrwr) := io.datawr
+        registers(addrwr) := io.datawr
         //io.wrtest := registers(3.U)
     }.otherwise {
-        registers(io.addrwr) := 22.S //22 code error for having no data
+        registers(addrwr) := 22.S //22 code error for having no data
     } 
     
     // when writing data on specific register on li or mv instructions or when writing alu result

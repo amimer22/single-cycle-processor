@@ -1,6 +1,7 @@
 // this module works if theres a br jmp 
 package riscv 
 import chisel3._
+import chisel3.stage.ChiselStage
 
 
 class PcCtrl extends Module {
@@ -28,4 +29,7 @@ class PcCtrl extends Module {
         io.IP := 44.S//err just testing
     }
 
+}
+object PcCtrl extends App {
+  (new ChiselStage).emitVerilog(new PcCtrl)
 }

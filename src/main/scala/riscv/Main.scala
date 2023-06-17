@@ -73,10 +73,10 @@ class Main extends Module {
 
     //regfile
     RegisterFile.io.RegWrite := Controler.io.RegWrite
-    RegisterFile.io.addrwr := IMemory.io.instruction(11,7)
+    RegisterFile.io.instruction_addrwr := IMemory.io.instruction
 
     //OPR1
-    OPR1read.io.addrs1in := IMemory.io.instruction(19,15)  
+    OPR1read.io.instruction_addr1 := IMemory.io.instruction  
     RegisterFile.io.addr1 := OPR1read.io.addrs1out
     OPR1read.io.datas1in := RegisterFile.io.data1
    
@@ -89,8 +89,8 @@ class Main extends Module {
 
 
     //OPR2
-
-    OPR2read.io.addrs2in := IMemory.io.instruction(24,20)
+    OPR2read.io.instruction_addr2 := IMemory.io.instruction
+    //OPR2read.io.addrs2in := IMemory.io.instruction(24,20)
     RegisterFile.io.addr2 := OPR2read.io.addrs2out
     OPR2read.io.datas2in := RegisterFile.io.data2    
     

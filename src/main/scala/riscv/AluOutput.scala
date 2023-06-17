@@ -1,5 +1,7 @@
 package riscv
 import chisel3._
+import chisel3.stage.ChiselStage
+
 
 class AluOutput extends Module {
   val io = IO(new Bundle {
@@ -39,4 +41,7 @@ class AluOutput extends Module {
     }*/
   
 
+}
+object AluOutput extends App {
+  (new ChiselStage).emitVerilog(new AluOutput)
 }

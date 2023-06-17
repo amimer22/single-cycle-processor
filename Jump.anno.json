@@ -1,0 +1,20 @@
+[
+  {
+    "class":"firrtl.EmitCircuitAnnotation",
+    "emitter":"firrtl.VerilogEmitter"
+  },
+  {
+    "class":"firrtl.transforms.BlackBoxTargetDirAnno",
+    "targetDir":"."
+  },
+  {
+    "class":"firrtl.transforms.CombinationalPath",
+    "sink":"~Jump|Jump>io_J_output",
+    "sources":[
+      "~Jump|Jump>io_Jal_imm",
+      "~Jump|Jump>io_JmpCtrl",
+      "~Jump|Jump>io_JalR_imm",
+      "~Jump|Jump>io_Datas1"
+    ]
+  }
+]

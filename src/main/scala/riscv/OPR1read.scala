@@ -6,7 +6,8 @@ import chisel3.stage.ChiselStage
 
 class OPR1read extends Module {
     val io = IO(new Bundle {
-        val addrs1in = Input(UInt(5.W))
+        val instruction_addr1 = Input(UInt(32.W))
+        //val addrs1in = Input(UInt(5.W))
         val datas1in = Input(SInt(32.W))
         val addrs1out = Output(UInt(5.W))
         val datas1out = Output(SInt(32.W))
@@ -14,7 +15,8 @@ class OPR1read extends Module {
     })
     val OPR1addr1 = Wire(UInt(5.W)) //addr output 
     val OPR1data1 = Wire(SInt(32.W)) //data output
-    OPR1addr1 := io.addrs1in
+    OPR1addr1 := io.instruction_addr1(19,15)
+    //OPR1addr1 := io.addrs1in
     OPR1data1 := io.datas1in
 
     io.addrs1out := OPR1addr1

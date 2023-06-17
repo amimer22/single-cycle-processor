@@ -1,6 +1,8 @@
 package riscv 
 import chisel3._ 
 import chisel3.util._
+import chisel3.stage.ChiselStage
+
 
 class Jump extends Module {
     val io = IO(new Bundle {
@@ -19,4 +21,7 @@ class Jump extends Module {
     }
     .otherwise {io.J_output:= 22.S}
     
+}
+object Jump extends App {
+  (new ChiselStage).emitVerilog(new Jump)
 }

@@ -1,5 +1,6 @@
 package riscv
 import chisel3._
+import chisel3.stage.ChiselStage
 
 class ADD extends Module {
   val io = IO(new Bundle {
@@ -15,4 +16,7 @@ class ADD extends Module {
 
   io.result := io.op1 + io.op2
 
+}
+object ADD extends App {
+  (new ChiselStage).emitVerilog(new ADD)
 }

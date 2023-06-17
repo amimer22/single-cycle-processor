@@ -1,6 +1,8 @@
 // this module works if theres a br jmp 
 package riscv 
 import chisel3._
+import chisel3.stage.ChiselStage
+
 // all this module should be only a multiplexer taking input from the control 
 // to determin if it's from load or normal arithmetic
 class ResultSel extends Module {
@@ -25,4 +27,7 @@ class ResultSel extends Module {
     }
  
     
+}
+object ResultSel extends App {
+  (new ChiselStage).emitVerilog(new ResultSel)
 }

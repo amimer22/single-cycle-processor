@@ -1,6 +1,8 @@
 package riscv 
 import chisel3._ 
 import chisel3.util._
+import chisel3.stage.ChiselStage
+
 
 class Branch extends Module {
     val io = IO(new Bundle {
@@ -22,4 +24,7 @@ class Branch extends Module {
     }
 
     io.Br_up := io.Br & sig //pcsrc
+}
+object Branch extends App {
+  (new ChiselStage).emitVerilog(new Branch)
 }

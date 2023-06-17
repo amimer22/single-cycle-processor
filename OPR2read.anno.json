@@ -9,16 +9,16 @@
   },
   {
     "class":"firrtl.transforms.CombinationalPath",
-    "sink":"~OPR2read|OPR2read>io_addrs2out",
+    "sink":"~OPR2read|OPR2read>io_datas2out",
     "sources":[
-      "~OPR2read|OPR2read>io_addrs2in"
+      "~OPR2read|OPR2read>io_datas2in"
     ]
   },
   {
     "class":"firrtl.transforms.CombinationalPath",
-    "sink":"~OPR2read|OPR2read>io_datas2out",
+    "sink":"~OPR2read|OPR2read>io_addrs2out",
     "sources":[
-      "~OPR2read|OPR2read>io_datas2in"
+      "~OPR2read|OPR2read>io_instruction_addr2"
     ]
   }
 ]
